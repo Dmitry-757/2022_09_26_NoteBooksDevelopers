@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <title>Информация по производителям ноутбуков</title>
-    <link rel="stylesheet" href="../../Html/css/commonInfo.css">
+    <link rel="stylesheet" href="../css/commonInfo.css" th:href="@{/css/commonInfo.css}" />
     <style>
         /* form {
             border: 1px solid #87CEEB;
@@ -17,7 +17,8 @@
 <body>
 <h1>Common Info</h1>
 <br>
-
+<a href="/" th:href="${ctxPath}+'/hello-servlet'">Главная</a>
+<br>
 <table>
     <tr>
         <th>Название производителя</th>

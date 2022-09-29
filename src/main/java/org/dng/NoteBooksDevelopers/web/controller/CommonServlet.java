@@ -1,9 +1,6 @@
 package org.dng.NoteBooksDevelopers.web.controller;
 
-import java.io.*;
-import java.util.Calendar;
-
-import jakarta.servlet.ServletConfig;
+import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import org.dng.NoteBooksDevelopers.web.controller.service.ServicesForServlets;
@@ -13,8 +10,12 @@ import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.IWebRequest;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
-public class HelloServlet extends HttpServlet {
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Calendar;
+
+@WebServlet(name = "CommonInfoServlet", value = "/commonInfo")
+public class CommonServlet extends HttpServlet {
     private ITemplateEngine templateEngine;
     private JakartaServletWebApplication application;
 
@@ -29,6 +30,7 @@ public class HelloServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         response.setContentType("text/html");
         response.setContentType("text/html;charset=UTF-8");
         response.setHeader("Pragma", "no-cache");
@@ -44,7 +46,7 @@ public class HelloServlet extends HttpServlet {
         ctx.setVariable("today", Calendar.getInstance());
         ctx.setVariable("ctxPath", request.getContextPath());
 
-        templateEngine.process("startMenu", ctx, writer);
+        templateEngine.process("commonInfo", ctx, writer);
 
     }
 
