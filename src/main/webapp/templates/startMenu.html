@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8">
     <title>Информация по производителям ноутбуков</title>
-    <link rel="stylesheet" href="css/startMenu.css">
+    <link rel="stylesheet" href="../css/startMenu.css" th:href="@{/css/startMenu.css}" />
     <style>
         /* form {
             border: 1px solid #87CEEB;
@@ -16,11 +16,15 @@
 
 <body>
 
+<p>
+    Today is: <span th:text="${#calendars.format(today)}">13 February 2011</span>
+</p>
+
 <nav role="navigation">
     <ul>
         <li><a href="/">Главная</a>
             <ul>
-                <li><a href="../html/commonInfo.html">Общая информация</a></li>
+                <li><a href="../templates/commonInfo.html">Общая информация</a></li>
                 <li><a href="/history">История развития производителя</a></li>
                 <li><a href="/news">Новости</a></li>
                 <li><a href="/NotebooksModels">Модели нотебяков</a></li>
