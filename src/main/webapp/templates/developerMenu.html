@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Информация по производителю</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<!--    <link rel="stylesheet" href="../css/startMenu.css" th:href="@{/css/startMenu.css}" />-->
+    <link rel="stylesheet" href="../css/developerMenu.css" th:href="@{/css/developerMenu.css}" />
+<!--    <link href="${pageContext.request.contextPath}/css/developerMenu.css" rel="stylesheet">-->
+<!--    <link href="${pageContext.request.contextPath}/templates/bootstrap/plugins/fontawesome-free/css/all.min.css" rel="stylesheet">    -->
+<!--    <link rel="stylesheet" type="text/css" href="../css/developerMenu.css" th:href="@{/developerMenu.css}" />-->
+    <style>
+        /* form {
+            border: 1px solid #87CEEB;
+            margin: 10px;
+            padding: 10px;
+        } */
+
+    </style>
+</head>
+
+<body>
+
+<p>
+    Today is: <span th:text="${#calendars.format(today)}">13 February 2011</span>
+</p>
+
+<nav role="navigation">
+    <ul>
+        <li><a href="/" th:href="${ctxPath}+'/main'">Главная</a></li>
+        <li><a href="/sitemap">О производителе</a>
+            <ul>
+                <li><a href="/commonInfo" th:href="${ctxPath}+'/commonInfo?devid='+${devId}">Общая информация</a></li>
+                <li><a href="/history">История развития производителя</a></li>
+                <li><a href="/news">Новости</a></li>
+                <li><a href="/NotebooksModels">Модели нотебяков</a></li>
+            </ul>
+        </li>
+        <li><a href="/contact">Обратная связь</a></li>
+    </ul>
+</nav>
+
+</body>
+
+</html>

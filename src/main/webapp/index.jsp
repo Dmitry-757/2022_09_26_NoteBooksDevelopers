@@ -5,9 +5,13 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
+<h1><%= "Home task. NoteBooks developer Info" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
+<a href="main">Main</a>
+
+
+
+
 </body>
 </html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Информация по производителям ноутбуков</title>
+<!--    <link rel="stylesheet" href="../css/start.css" th:href="@{/css/start.css}" />-->
+    <style>
+        /* form {
+            border: 1px solid #87CEEB;
+            margin: 10px;
+            padding: 10px;
+        } */
+    </style>
+</head>
+
+<body>
+
+<p>
+    Today is: <span th:text="${#calendars.format(today)}">30 February 2022</span>
+</p>
+
+<table>
+    <tr>
+        <th>Название производителя</th>
+        <th>Страна Штаб-квартиры</th>
+        <th>Логотип</th>
+        <th>Количество сотрудников</th>
+        <th>Краткая информация о производителе</th>
+    </tr>
+
+    <tr th:each="dev : ${devList}">
+<!--        <a th:href="@{/order/details(id=${orderId},type=${orderType})}">...</a>-->
+<!--        <td> <a href="/someReference" th:href="@{ ${ctxPath}+'/developerMenu'(devid=${dev.getId()}) }" th:text="${dev.getName()}">Общая информация</a></td>-->
+        <td> <a href="/someReference" th:href="${ctxPath}+'/developerMenu?devid='+${dev.getId()}" th:text="${dev.getName()}">Общая информация</a></td>
+        <td th:text="${dev.getCountry()}">Zimbabwe</td>
+        <td th:text="${dev.getLogo()}">logo</td>
+        <td th:text="${dev.getEmployeesNumber()}">100</td>
+        <td th:text="${dev.getShortInfo()}">short info</td>
+<!--        <td th:text="${prod.inStock}? #{true} : #{false}">yes</td>-->
+    </tr>
+<!--    <tr>-->
+<!--        <td>Название производителя</td>-->
+<!--        <td>Страна Штаб-квартиры</td>-->
+<!--        <td>Логотип</td>-->
+<!--        <td>Количество сотрудников</td>-->
+<!--        <td>Краткая информация о производителе</td>-->
+<!--    </tr>-->
+</table>
+
+</body>
+
+</html>
