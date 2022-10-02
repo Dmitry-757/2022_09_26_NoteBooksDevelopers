@@ -9,7 +9,7 @@ public class mySQLConnection {
     private static String username = "root";
     private static String password = "dingo1975";
 //    private static String URL = "jdbc:mysql://localhost:3306/notebookdev_db";
-    private static String URL = "jdbc:mysql://localhost:3306";
+    private static String URL = "jdbc:mysql://localhost:3306/notebookdev_db";
     public static Connection connectionExp;
 
 
@@ -20,6 +20,11 @@ public class mySQLConnection {
 //                 IllegalAccessException e) {
 //            throw new RuntimeException(e);
 //        }
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch ( ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         try
         {

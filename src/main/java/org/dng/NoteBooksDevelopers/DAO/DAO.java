@@ -23,11 +23,12 @@ public class DAO {
         return false;
     }
 
-    public static NotebookDeveloper getById(int id) {
+    public static NotebookDeveloper getById(long id) {
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
         ) {
-            String sql_query = "Select top 1 * from Products where id = " + id;
+            //String sql_query = "Select top 1 * from notebookdev_tbl where id = " + id;
+            String sql_query = "select * from notebookdev_tbl where id = "+id+" limit 1;";
             ResultSet resultSet = statement.executeQuery(sql_query);
             if (resultSet.next()) {
                 int resId = resultSet.getInt("id");
@@ -47,9 +48,9 @@ public class DAO {
 
 
 
-    public List< NotebookDeveloper > getAll() {
+    public static  List<NotebookDeveloper> getAll() {
 
-        String sql_query = "Select * from Products;";
+        String sql_query = "Select * from notebookdev_tbl;";
         List < NotebookDeveloper > units = new ArrayList< >();
 
         try (Connection connection = DBConnection.getConnection();

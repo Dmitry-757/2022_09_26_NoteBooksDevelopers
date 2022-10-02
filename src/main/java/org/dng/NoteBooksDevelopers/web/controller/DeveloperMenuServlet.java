@@ -6,6 +6,7 @@ import java.util.Calendar;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.dng.NoteBooksDevelopers.DAO.DAO;
 import org.dng.NoteBooksDevelopers.web.controller.service.ServicesForServlets;
 import org.thymeleaf.ITemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -48,6 +49,7 @@ public class DeveloperMenuServlet extends HttpServlet {
         ctx.setVariable("today", Calendar.getInstance());
         ctx.setVariable("ctxPath", request.getContextPath());
         ctx.setVariable("devId", devId);
+        ctx.setVariable("devName", DAO.getById(devId).getName());
 
         templateEngine.process("developerMenu", ctx, writer);
     }
