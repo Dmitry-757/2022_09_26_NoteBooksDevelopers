@@ -3,6 +3,7 @@ package org.dng.NoteBooksDevelopers.web.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.dng.NoteBooksDevelopers.DAO.DAO;
 import org.dng.NoteBooksDevelopers.Model.NotebookDeveloper;
 import org.dng.NoteBooksDevelopers.web.controller.service.ServicesForServlets;
 import org.thymeleaf.ITemplateEngine;
@@ -42,7 +43,7 @@ public class MainServlet extends HttpServlet {
         final Writer writer = response.getWriter();
         WebContext ctx = new WebContext(webExchange, webExchange.getLocale());
 
-        List<NotebookDeveloper> devList = ServicesForServlets.getDevelopersList();
+        List<NotebookDeveloper> devList = DAO.getAll();
 //        for (NotebookDeveloper d:devList) {
 //            System.out.println(d.getName()+"  id = "+d.getId());
 //        }
