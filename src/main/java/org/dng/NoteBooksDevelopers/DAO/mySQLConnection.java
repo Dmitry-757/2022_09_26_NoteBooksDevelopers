@@ -8,7 +8,7 @@ import java.sql.SQLException;
 public class mySQLConnection {
     private static String username = "root";
     private static String password = "dingo1975";
-//    private static String URL = "jdbc:mysql://localhost:3306/notebookdev_db";
+//    private static String URL = "jdbc:mysql://localhost:3306";
     private static String URL = "jdbc:mysql://localhost:3306/notebookdev_db";
     public static Connection connectionExp;
 
@@ -21,7 +21,10 @@ public class mySQLConnection {
 //            throw new RuntimeException(e);
 //        }
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            //для подключения  mySQL версии выше 8.0 используем драйвер "com.mysql.cj.jdbc.Driver", а ниже "com.mysql.jdbc.Driver"
+            String driver = "com.mysql.cj.jdbc.Driver";
+            Class.forName(driver);
+            //Class.forName("com.mysql.jdbc.Driver");
         } catch ( ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
