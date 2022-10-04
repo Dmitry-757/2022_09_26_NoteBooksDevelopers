@@ -77,7 +77,7 @@ public class PrepareDB {
 
         String fillStr1 =
                 "INSERT notebookdev_tbl(name, country, employeesNumber, shortInfo, logo, photo) \n" +
-                        "VALUES (?, ?, ?, ?, ?, ?);";
+                        "VALUES (?, ?, ?, ?, ?, ?)";
 //                        "VALUES ('Dell', 'USA', 10000, 'Manufacturer of Dell noteBooks','just logo');";
 
         String fillStr2 = "INSERT notebookdev_tbl(name, country, employeesNumber, shortInfo, logo) \n" +
@@ -98,15 +98,6 @@ public class PrepareDB {
             ps.setInt(3,10000);
             ps.setString(4,"Manufacturer of Dell noteBooks");
             ps.setString(5,"just logo");
-
-
-
-
-
-            //            fis = new FileInputStream("/img/book_dell.jpg");
-//            File directory = new File("./src/main/webapp/img");
-//            System.out.println(directory.getAbsolutePath());
-//            Path file = Path.of("src/main/webapp/img/notebook.jpg");
             fis = new FileInputStream("src/main/webapp/img/notebook.jpg");
             ps.setBinaryStream(6, fis);
             ps.addBatch(fillStr1);
