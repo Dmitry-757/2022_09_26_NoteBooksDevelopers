@@ -1,4 +1,8 @@
 /*| Navigation |*/
+/*body{*/
+/*    background-image: url("../img/notebook.jpg");*/
+/*}*/
+
 
 nav {
     background: #334; /* Задаем основной фон меню */
@@ -44,4 +48,28 @@ nav ul li:hover ul {
 
 nav ul li ul li {
     display: block; /* Выстраиваем по вертикали пункты выпадающего меню */
+}
+
+.navbar-logo {
+    /*position: absolute;*/
+
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*top: 50%;*/
+    /*transform: translate(-50%,-50%);*/
+
+}
+.logo {
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url("../img/notebook.jpg");
+
+    width: 600px;
+    height: 500px;
 }

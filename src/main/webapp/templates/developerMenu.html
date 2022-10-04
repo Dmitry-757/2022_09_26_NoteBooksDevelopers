@@ -23,29 +23,33 @@
 
 <body>
 
-<p>
+<p style="color: aqua">
     Today is: <span th:text="${#calendars.format(today)}">13 February 2011</span>
 </p>
-<p>
+<p style="color: aqua">
     Current developer is: <span th:text="${devName}">RosChrenProduct</span>
 </p>
 
-
+<div>
 <nav role="navigation">
     <ul>
         <li><a href="/" th:href="${ctxPath}+'/main'">Главная</a></li>
-        <li><a href="/sitemap">О производителе</a>
-            <ul>
+<!--        <li><a href="/sitemap">О производителе</a>-->
+<!--            <ul>-->
                 <li><a href="/commonInfo" th:href="${ctxPath}+'/commonInfo?devid='+${devId}">Общая информация</a></li>
                 <li><a href="/history">История развития производителя</a></li>
                 <li><a href="/news">Новости</a></li>
                 <li><a href="/NotebooksModels">Модели нотебяков</a></li>
-            </ul>
-        </li>
+<!--            </ul>-->
+<!--        </li>-->
         <li><a href="/contact">Обратная связь</a></li>
     </ul>
 </nav>
+<!--<a class="navbar-logo" href=""><img src="../img/notebook.jpg" alt="laptop"></a>-->
+<!--    <div style="background-image: url(../img/notebook.jpg); background-color: #000" class="photoBorder"></div>-->
+</div>
 
+<div id="logo" class="logo"></div>
 </body>
 
 </html>
