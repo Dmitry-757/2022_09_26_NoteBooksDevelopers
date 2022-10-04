@@ -81,11 +81,6 @@ public class PrepareDB {
                         "VALUES (?, ?, ?, ?, ?, ?)";
 //                        "VALUES ('Dell', 'USA', 10000, 'Manufacturer of Dell noteBooks','just logo');";
 
-//        String fillStr2 = "INSERT notebookdev_tbl(name, country, employeesNumber, shortInfo, logo) \n" +
-//                        "VALUES ('HP', 'USA', 20000, 'Manufacturer of HP noteBooks','just logo');";
-//        String fillStr3 = "INSERT notebookdev_tbl(name, country, employeesNumber, shortInfo, logo) \n" +
-//                "VALUES ('Gnusmas', 'South Korea', 30000, 'Manufacturer of Samsung noteBooks','just logo');";
-
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(fillStr1);
         ) {
@@ -122,8 +117,6 @@ public class PrepareDB {
 
             int rows[] = ps.executeBatch();
             System.out.println("Where added " + (rows.length) +" record(s)");
-//            int row = ps.executeUpdate();
-//            System.out.println("row added = "+row);
             connection.commit();
         }
         catch (SQLException | FileNotFoundException e) {
