@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 
 public class PrepareDB {
     public static void prepareBase() {
@@ -76,21 +77,20 @@ public class PrepareDB {
                 "USE notebookdev_db; ";
 
         String fillStr1 =
-                "INSERT notebookdev_tbl(name, country, employeesNumber, shortInfo, logo, photo) \n" +
+                "INSERT notebookdev_db.notebookdev_tbl(name, country, employeesNumber, shortInfo, logo, photo) \n" +
                         "VALUES (?, ?, ?, ?, ?, ?)";
 //                        "VALUES ('Dell', 'USA', 10000, 'Manufacturer of Dell noteBooks','just logo');";
 
-        String fillStr2 = "INSERT notebookdev_tbl(name, country, employeesNumber, shortInfo, logo) \n" +
-                        "VALUES ('HP', 'USA', 20000, 'Manufacturer of HP noteBooks','just logo');";
-        String fillStr3 = "INSERT notebookdev_tbl(name, country, employeesNumber, shortInfo, logo) \n" +
-                "VALUES ('Gnusmas', 'South Korea', 30000, 'Manufacturer of Samsung noteBooks','just logo');";
+//        String fillStr2 = "INSERT notebookdev_tbl(name, country, employeesNumber, shortInfo, logo) \n" +
+//                        "VALUES ('HP', 'USA', 20000, 'Manufacturer of HP noteBooks','just logo');";
+//        String fillStr3 = "INSERT notebookdev_tbl(name, country, employeesNumber, shortInfo, logo) \n" +
+//                "VALUES ('Gnusmas', 'South Korea', 30000, 'Manufacturer of Samsung noteBooks','just logo');";
 
         try (Connection connection = DBConnection.getConnection();
-             //Statement statement = connection.createStatement();
-             PreparedStatement ps = connection.prepareStatement(fillStr1)
+             PreparedStatement ps = connection.prepareStatement(fillStr1);
         ) {
-            ps.addBatch(SELECT_DB);
-
+            connection.setAutoCommit(false);
+//            ps.addBatch(SELECT_DB);
             FileInputStream fis;
 
             ps.setString(1, "Dell");
@@ -98,39 +98,36 @@ public class PrepareDB {
             ps.setInt(3,10000);
             ps.setString(4,"Manufacturer of Dell noteBooks");
             ps.setString(5,"just logo");
-            fis = new FileInputStream("src/main/webapp/img/notebook.jpg");
+            fis = new FileInputStream("src/main/webapp/img/book_dell.jpg");
             ps.setBinaryStream(6, fis);
-            ps.addBatch(fillStr1);
+            ps.addBatch();
 
-//            ps.setString(1, "Dell");
-//            ps.setString(2, "USA");
-//            ps.setInt(3,20000);
-//            ps.setString(4,"Manufacturer of HP NoteBooks");
-//            ps.setString(5,"just logo");
-//            fis = new FileInputStream("/img/book_hp.jpg");
-//            ps.setBinaryStream(5, fis);
-//            statement.addBatch(fillStr1);
-//
-//            ps.setString(1, "Gnusmas");
-//            ps.setString(2, "South Korea");
-//            ps.setInt(3,30000);
-//            ps.setString(4,"Manufacturer of Samsung noteBooks");
-//            ps.setString(5,"just logo");
-//            fis = new FileInputStream("/img/book_samsung.jpg");
-//            ps.setBinaryStream(5, fis);
+            ps.setString(1, "HP");
+            ps.setString(2, "USA");
+            ps.setInt(3,20000);
+            ps.setString(4,"Manufacturer of HP noteBooks");
+            ps.setString(5,"just logo");
+            fis = new FileInputStream("src/main/webapp/img/book_hp.jpg");
+            ps.setBinaryStream(6, fis);
+            ps.addBatch();
 
-            ps.executeBatch();
+            ps.setString(1, "Gnusmas");
+            ps.setString(2, "South Korea");
+            ps.setInt(3,20000);
+            ps.setString(4,"Manufacturer of Samsung noteBooks");
+            ps.setString(5,"just logo");
+            fis = new FileInputStream("src/main/webapp/img/book_samsung.jpg");
+            ps.setBinaryStream(6, fis);
+            ps.addBatch();
 
-//            statement.addBatch(fillStr1);
-//            statement.addBatch(fillStr2);
-//            statement.addBatch(fillStr3);
-
-//            statement.executeBatch();
-
+            int rows[] = ps.executeBatch();
+            System.out.println("Where added " + (rows.length) +" record(s)");
+//            int row = ps.executeUpdate();
+//            System.out.println("row added = "+row);
+            connection.commit();
         }
         catch (SQLException | FileNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }
