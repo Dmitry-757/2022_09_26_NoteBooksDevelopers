@@ -86,10 +86,11 @@ public class PrepareDB {
                 "VALUES ('Gnusmas', 'South Korea', 30000, 'Manufacturer of Samsung noteBooks','just logo');";
 
         try (Connection connection = DBConnection.getConnection();
-             Statement statement = connection.createStatement();
+             //Statement statement = connection.createStatement();
              PreparedStatement ps = connection.prepareStatement(fillStr1)
         ) {
             ps.addBatch(SELECT_DB);
+
             FileInputStream fis;
 
             ps.setString(1, "Dell");
@@ -103,12 +104,12 @@ public class PrepareDB {
 
 
             //            fis = new FileInputStream("/img/book_dell.jpg");
-            File directory = new File("./src/main/webapp/img");
-            System.out.println(directory.getAbsolutePath());
-            Path file = Path.of(".src/main/webapp/img/notebook.jpg");
-            fis = new FileInputStream(file.toFile());
-            ps.setBinaryStream(5, fis);
-            statement.addBatch(fillStr1);
+//            File directory = new File("./src/main/webapp/img");
+//            System.out.println(directory.getAbsolutePath());
+//            Path file = Path.of("src/main/webapp/img/notebook.jpg");
+            fis = new FileInputStream("src/main/webapp/img/notebook.jpg");
+            ps.setBinaryStream(6, fis);
+            ps.addBatch(fillStr1);
 
 //            ps.setString(1, "Dell");
 //            ps.setString(2, "USA");
