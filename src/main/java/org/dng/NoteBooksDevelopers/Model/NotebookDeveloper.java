@@ -1,5 +1,7 @@
 package org.dng.NoteBooksDevelopers.Model;
 
+import java.util.Optional;
+
 public class NotebookDeveloper {
     private long id;
     private String Name;
@@ -7,14 +9,16 @@ public class NotebookDeveloper {
     private String Logo;
     private int EmployeesNumber;
     private String ShortInfo;
+    private byte[] photo;
 
-    public NotebookDeveloper(long id, String name, String country, String logo, int employeesNumber, String shortInfo) {
+    public NotebookDeveloper(long id, String name, String country, String logo, int employeesNumber, String shortInfo, byte[] photo) {
         this.id = id;
         Name = name;
         Country = country;
         Logo = logo;
         EmployeesNumber = employeesNumber;
         ShortInfo = shortInfo;
+        this.photo = photo;
     }
 
     public long getId() {
@@ -40,4 +44,13 @@ public class NotebookDeveloper {
     public String getShortInfo() {
         return ShortInfo;
     }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public Optional<byte[]> getPhotoOpt() {
+        return Optional.ofNullable(photo);
+    }
+
 }

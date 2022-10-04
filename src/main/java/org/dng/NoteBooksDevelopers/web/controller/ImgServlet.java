@@ -7,6 +7,7 @@ import org.dng.NoteBooksDevelopers.DAO.DAO;
 import org.dng.NoteBooksDevelopers.Model.NotebookDeveloper;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @WebServlet(name = "ImgServlet", urlPatterns = { "/img/*" })
 public class ImgServlet extends HttpServlet {
@@ -15,15 +16,16 @@ public class ImgServlet extends HttpServlet {
         long devId=0;
         String devIdStr;
         if (  (devIdStr = request.getParameter("devid")) != null){
-            devId = Long.valueOf(devIdStr);
+            devId = Long.parseLong(devIdStr);
         }
 
-        System.out.println("request for img! devid = "+devId);
+//        System.out.println("request for img! devid = "+devId);
         NotebookDeveloper item = DAO.getById(devId);
-        byte[] content = item.getPhoto();
+        Optional<byte[]> contentO = item.getPhotoOpt();
+        //byte[] content = item.getPhoto();
         response.setContentType("image/jpeg");
-        response.setContentLength(content.length);
-        response.getOutputStream().write(content);
+        response.setContentLength(contentO.orElse(new byte[0]).length);
+        response.getOutputStream().write(contentO.orElse(new byte[0]));
     }
 
     @Override
