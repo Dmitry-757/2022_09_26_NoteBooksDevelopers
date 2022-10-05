@@ -8,8 +8,9 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.WebApplicationTemplateResolver;
 import org.thymeleaf.web.IWebApplication;
 
-import java.util.LinkedList;
+//import java.util.LinkedList;
 import java.util.List;
+
 
 public class ServicesForServlets {
 

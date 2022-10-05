@@ -21,7 +21,6 @@ public class DeveloperMenuServlet extends HttpServlet {
     @Override
     public void init(ServletConfig servletConfig) {
         this.application = JakartaServletWebApplication.buildApplication(servletConfig.getServletContext());
-//        this.templateEngine = buildTemplateEngine(this.application);
         this.templateEngine = ServicesForServlets.buildTemplateEngine(this.application);
     }
 
@@ -40,9 +39,8 @@ public class DeveloperMenuServlet extends HttpServlet {
             devId = Long.valueOf(devIdStr);
         }
 
-        final IWebExchange webExchange = this.application.buildExchange(request, response);
 //        final IWebRequest webRequest = webExchange.getRequest();
-
+        final IWebExchange webExchange = this.application.buildExchange(request, response);
         final Writer writer = response.getWriter();
         WebContext ctx = new WebContext(webExchange, webExchange.getLocale());
 
