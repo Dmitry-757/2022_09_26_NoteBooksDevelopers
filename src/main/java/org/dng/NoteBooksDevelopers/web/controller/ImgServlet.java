@@ -10,9 +10,10 @@ import java.io.IOException;
 import java.util.Optional;
 
 @WebServlet(name = "ImgServlet", urlPatterns = { "/img/*" })
+//@WebServlet(name = "ImgServlet", value = "/img")
 public class ImgServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long devId=0;
         String devIdStr;
         if (  (devIdStr = request.getParameter("devid")) != null){
@@ -29,7 +30,7 @@ public class ImgServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
     }
 }

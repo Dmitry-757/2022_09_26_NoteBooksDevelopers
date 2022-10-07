@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>История развития производителя</title>
+    <link rel="stylesheet" href="../css/commonInfo.css" th:href="@{/css/commonInfo.css}" />
+    <style>
+        /* form {
+            border: 1px solid #87CEEB;
+            margin: 10px;
+            padding: 10px;
+        } */
+    </style>
+</head>
+
+<body>
+<h1 th:text="'История развития '+${dev.getName()}">История развития производителя</h1>
+<br>
+<a href="/" th:href="${ctxPath}+'/main'">Главная</a>
+<br>
+<hr>
+<br>
+
+<!--<ul>-->
+<!--    <li th:each="historyRec, iterStat : ${historyList}" th:text="${historyRec} ">some history record</li>-->
+<!--</ul>-->
+
+<div th:each="historyRec, iterStat : ${historyMap}">
+<!--    <span th:text="${historyRec}"> some history record </span>-->
+<!--    <br>-->
+<!--    <span th:text="'iterStat.index = '+${iterStat.index}"/></span>-->
+<!--    <br>-->
+    <ul>
+        <li th:text="${historyRec.getValue()} ">some history record </li>
+<!--        <li th:text="${historyRec.getKey()} ">Key of history record </li>-->
+<!--        <span th:text="'iterStat.index = '+${iterStat.index}"/>-->
+
+        <div style="text-align: center">
+            <img style="width: 50%" th:src="${ctxPath}+'/historyImg?historyId='+${historyRec.getKey()}" src="../img/notebook.jpg" alt="laptop">
+        </div>
+
+    </ul>
+</div>
+
+
+
+
+</body>
+
+</html>

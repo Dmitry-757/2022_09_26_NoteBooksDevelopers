@@ -165,7 +165,6 @@ public class PrepareDB {
         ) {
             connection.setAutoCommit(false);
 
-
             //Dell
             ps.setInt(1, 1);
             ps.setString(2, "Где и когда появился первый ноутбук");
@@ -218,8 +217,6 @@ public class PrepareDB {
             ps.addBatch();
 
 
-
-
             int[] rows = ps.executeBatch();
             System.out.println("to devhistory_tbl where added " + (rows.length) +" record(s)");
             connection.commit();
@@ -242,16 +239,21 @@ public class PrepareDB {
 
             //dell
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_1.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_1_1.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_2.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_1_2.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,3);
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
+            ps.setInt(1,4);
             fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_3.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();

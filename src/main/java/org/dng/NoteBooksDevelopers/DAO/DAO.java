@@ -3,9 +3,7 @@ package org.dng.NoteBooksDevelopers.DAO;
 import org.dng.NoteBooksDevelopers.Model.NotebookDeveloper;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class DAO {
 
@@ -79,25 +77,46 @@ public class DAO {
     }
 
 
-    public static List<String> getDevHistoryById(long id) {
-        List<String> historyList = new LinkedList<>();
+//    public static List<String> getDevHistoryById(long id) {
+//        List<String> historyList = new LinkedList<>();
+//        String sql_query = "select * from notebookdev_db.devhistory_tbl where devId = "+id+";";
+//        try (Connection connection = DBConnection.getConnection();
+//             Statement statement = connection.createStatement()
+//        ) {
+//            ResultSet resultSet = statement.executeQuery(sql_query);
+//            while (resultSet.next()) {
+//                String devHistory = resultSet.getString("devhistory");
+////                byte[] photo = resultSet.getBytes("photo");
+//                historyList.add(devHistory);
+//            }
+//            return historyList;
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
+    public static Map<Integer, String> getDevHistoryById(long id) {
+        Map<Integer, String> historyMap = new HashMap<>();
         String sql_query = "select * from notebookdev_db.devhistory_tbl where devId = "+id+";";
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
         ) {
             ResultSet resultSet = statement.executeQuery(sql_query);
             while (resultSet.next()) {
+                int recId = resultSet.getInt("id");
                 String devHistory = resultSet.getString("devhistory");
-//                byte[] photo = resultSet.getBytes("photo");
-                historyList.add(devHistory);
+                historyMap.put(recId,devHistory);
             }
-            return historyList;
+            return historyMap;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
+
 
     public static List<byte[]> getHistoryPhotosByDevHistoryId(long id) {
         List<byte[]> historyPhotoList = new LinkedList<>();
@@ -112,6 +131,27 @@ public class DAO {
             }
             return historyPhotoList;
 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public static ResultSet getHistoryPhotosDevHistoryByDevId(long id) {
+        ResultSet resultSet;
+
+//        String sql_query = "select * from notebookdev_db.devhistory_photo_tbl where devhistoryId = "+id+";";
+        String sql_query = """
+                select * from devhistory_photo_tbl as ph
+                join devhistory_tbl as h on ph.devhistoryId=h.id
+                where h.devId=
+                """+id;
+
+        try (Connection connection = DBConnection.getConnection();
+             Statement statement = connection.createStatement()
+        ) {
+            return statement.executeQuery(sql_query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
