@@ -167,27 +167,27 @@ public class PrepareDB {
 
 
             ps.setInt(1, 1);
-            ps.setString(2, "short story №1 about Dell");
+            ps.setString(2, "Где и когда появился первый ноутбук");
             ps.addBatch();
 
             ps.setInt(1, 1);
-            ps.setString(2, "short story №2 about Dell");
+            ps.setString(2, "1980-е. Эксперименты с формой");
             ps.addBatch();
 
-            ps.setInt(1, 2);
-            ps.setString(2, "short story №1 about HP");
+            ps.setInt(1, 1);
+            ps.setString(2, "1990-е. Все становится привычным");
             ps.addBatch();
 
-            ps.setInt(1, 2);
-            ps.setString(2, "short story №2 about HP");
+            ps.setInt(1, 1);
+            ps.setString(2, "2000-е. Десятилетие прорывов");
             ps.addBatch();
 
-            ps.setInt(1, 3);
-            ps.setString(2, "short story №1 about Gnusmas");
+            ps.setInt(1, 1);
+            ps.setString(2, "2010-е. Эпоха разнообразия");
             ps.addBatch();
 
-            ps.setInt(1, 3);
-            ps.setString(2, "short story №2 about Gnusmas");
+            ps.setInt(1, 1);
+            ps.setString(2, "2020-е. Технологические революции");
             ps.addBatch();
 
 
@@ -212,32 +212,32 @@ public class PrepareDB {
             FileInputStream fis;
 
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/book_dell.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_1.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/book_dell.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_4.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/book_dell.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_5.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,4);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/book_dell.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_6.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,5);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/book_dell.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_7.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,6);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/book_dell.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_8.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
