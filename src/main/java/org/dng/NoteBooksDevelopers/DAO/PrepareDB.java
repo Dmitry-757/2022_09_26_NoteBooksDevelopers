@@ -59,7 +59,7 @@ public class PrepareDB {
                         CREATE TABLE notebookdev_db.devhistory_tbl (
                           id INT NOT NULL AUTO_INCREMENT,
                           devId INT NOT NULL,
-                          devhistory VARCHAR(500) NULL,
+                          devhistory VARCHAR(1500) NULL,
                           PRIMARY KEY (id),
                           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
                           INDEX id_idx (devId ASC) VISIBLE,
@@ -166,6 +166,7 @@ public class PrepareDB {
             connection.setAutoCommit(false);
 
 
+            //Dell
             ps.setInt(1, 1);
             ps.setString(2, "Где и когда появился первый ноутбук");
             ps.addBatch();
@@ -179,16 +180,44 @@ public class PrepareDB {
             ps.addBatch();
 
             ps.setInt(1, 1);
-            ps.setString(2, "2000-е. Десятилетие прорывов");
-            ps.addBatch();
-
-            ps.setInt(1, 1);
-            ps.setString(2, "2010-е. Эпоха разнообразия");
-            ps.addBatch();
-
-            ps.setInt(1, 1);
             ps.setString(2, "2020-е. Технологические революции");
             ps.addBatch();
+
+            //HP
+            ps.setInt(1, 2);
+            ps.setString(2, " Почти ПК: программируемый калькулятор HP 9100A");
+            ps.addBatch();
+
+            ps.setInt(1, 2);
+            ps.setString(2, "В 1993 году появился HP OmniBook 300 – суперпортативный компьютер, " +
+                    "размеры которого сравнимы с современными нетбуками. Для того времени это было настоящим прорывом, " +
+                    "никто и представить себе не мог, что полноценный компьютер может быть таким компактным. " +
+                    "При этом в нем трудился полноценный процессор Intel 386, " +
+                    "имелись 9-дюймовый дисплей и батарея для автономной работы. " +
+                    "HP OmniBook 300 не был очень мощным даже по меркам своего времени, " +
+                    "но повседневные задачи решал без особых проблем. Покупателями HP OmniBook 300 были бизнесмены, " +
+                    "которых прельщала возможность работать в дороге и не смущала достаточно высокая цена в $2000");
+            ps.addBatch();
+
+
+            //Samsung
+            ps.setInt(1, 3);
+            ps.setString(2, "Первым лэптопом Samsung стал S5200, выпущенный в 1989 году для корейского рынка");
+            ps.addBatch();
+
+            ps.setInt(1, 3);
+            ps.setString(2, "В 2005 году появился трансформер Samsung M70. " +
+                    "Дисплей ноутбука мог быть отсоединен и прикреплен к подставке, что превращало его в элегантные шорты домашний компьютер");
+            ps.addBatch();
+
+            ps.setInt(1, 3);
+            ps.setString(2, "В штатах продажи ноутбуков Samsung начались совсем недавно — в 2009 году. " +
+                    "Первым в продаже появился 13-дюймовый Samsung Q310 в двух версиях. " +
+                    "Младшая модель оснащалась процессором Intel Core 2 Duo T5800 2.0GHz и жестким диском на 250 Гб, " +
+                    "старшая — Intel Core 2 Duo P8400 с 320 Гб памяти.");
+            ps.addBatch();
+
+
 
 
             int[] rows = ps.executeBatch();
@@ -211,35 +240,49 @@ public class PrepareDB {
             connection.setAutoCommit(false);
             FileInputStream fis;
 
+            //dell
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_1.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_1.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_4.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_2.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_5.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_3.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
-            ps.setInt(1,4);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_6.jpg");
-            ps.setBinaryStream(2, fis);
-            ps.addBatch();
-
+            //hp
             ps.setInt(1,5);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_7.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/hp_1.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,6);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/Screenshot_8.jpg");
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/hp_2.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
+
+            //samsung
+            ps.setInt(1,7);
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_1.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
+            ps.setInt(1,8);
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
+            ps.setInt(1,9);
+            fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_3.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
 
             int[] rows = ps.executeBatch();
             System.out.println("to devhistory_photo_tbl where added " + (rows.length) +" record(s)");

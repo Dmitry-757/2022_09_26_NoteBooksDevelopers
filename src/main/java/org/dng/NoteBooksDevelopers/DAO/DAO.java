@@ -4,6 +4,7 @@ import org.dng.NoteBooksDevelopers.Model.NotebookDeveloper;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class DAO {
@@ -23,7 +24,7 @@ public class DAO {
         return false;
     }
 
-    public static NotebookDeveloper getById(long id) {
+    public static NotebookDeveloper getDeveloperById(long id) {
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
         ) {
@@ -48,11 +49,10 @@ public class DAO {
     }
 
 
-
     public static  List<NotebookDeveloper> getAll() {
 
         String sql_query = "Select * from notebookdev_db.notebookdev_tbl;";
-        List < NotebookDeveloper > units = new ArrayList< >();
+        List < NotebookDeveloper > units = new LinkedList<>();
 
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql_query)) {
@@ -79,6 +79,44 @@ public class DAO {
     }
 
 
+    public static List<String> getDevHistoryById(long id) {
+        List<String> historyList = new LinkedList<>();
+        String sql_query = "select * from notebookdev_db.devhistory_tbl where devId = "+id+";";
+        try (Connection connection = DBConnection.getConnection();
+             Statement statement = connection.createStatement()
+        ) {
+            ResultSet resultSet = statement.executeQuery(sql_query);
+            while (resultSet.next()) {
+                String devHistory = resultSet.getString("devhistory");
+//                byte[] photo = resultSet.getBytes("photo");
+                historyList.add(devHistory);
+            }
+            return historyList;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<byte[]> getHistoryPhotosByDevHistoryId(long id) {
+        List<byte[]> historyPhotoList = new LinkedList<>();
+        String sql_query = "select * from notebookdev_db.devhistory_photo_tbl where devhistoryId = "+id+";";
+        try (Connection connection = DBConnection.getConnection();
+             Statement statement = connection.createStatement()
+        ) {
+            ResultSet resultSet = statement.executeQuery(sql_query);
+            while (resultSet.next()) {
+                byte[] photo = resultSet.getBytes("photo");
+                historyPhotoList.add(photo);
+            }
+            return historyPhotoList;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
 }

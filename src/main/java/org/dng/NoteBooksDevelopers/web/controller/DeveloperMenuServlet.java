@@ -47,7 +47,7 @@ public class DeveloperMenuServlet extends HttpServlet {
         ctx.setVariable("today", Calendar.getInstance());
         ctx.setVariable("ctxPath", request.getContextPath());
         ctx.setVariable("devId", devId);
-        ctx.setVariable("devName", DAO.getById(devId).getName());
+        ctx.setVariable("devName", DAO.getDeveloperById(devId).getName());
 
         templateEngine.process("developerMenu", ctx, writer);
     }

@@ -51,7 +51,7 @@ public class CommonInfoServlet extends HttpServlet {
         if (  (devIdStr = request.getParameter("devid")) != null){
             devId = Long.valueOf(devIdStr);
         }
-        ctx.setVariable("dev", DAO.getById(devId));
+        ctx.setVariable("dev", DAO.getDeveloperById(devId));
 
         templateEngine.process("commonInfo", ctx, writer);
 

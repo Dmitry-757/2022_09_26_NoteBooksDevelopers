@@ -20,7 +20,7 @@ public class ImgServlet extends HttpServlet {
         }
 
 //        System.out.println("request for img! devid = "+devId);
-        NotebookDeveloper item = DAO.getById(devId);
+        NotebookDeveloper item = DAO.getDeveloperById(devId);
         Optional<byte[]> contentO = item.getPhotoOpt();
         //byte[] content = item.getPhoto();
         response.setContentType("image/jpeg");
