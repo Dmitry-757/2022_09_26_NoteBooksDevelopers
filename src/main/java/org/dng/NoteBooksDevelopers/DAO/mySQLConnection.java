@@ -1,5 +1,7 @@
 package org.dng.NoteBooksDevelopers.DAO;
 
+import org.dng.NoteBooksDevelopers.Model.NotebookDeveloper;
+
 import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -51,6 +53,9 @@ public class mySQLConnection {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return connectionExp;
+
+
     }
 }

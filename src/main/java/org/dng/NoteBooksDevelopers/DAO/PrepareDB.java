@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class PrepareDB {
     public static void prepareBase() {
         String PREPARE_QUERY =
-                "DROP DATABASE IF EXISTS `notebookdev_db`;"
+                "DROP DATABASE IF EXISTS notebookdev_db;"
                 ;
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
@@ -29,7 +29,7 @@ public class PrepareDB {
 
 
         PREPARE_QUERY =
-                        "CREATE DATABASE IF NOT EXISTS `notebookdev_db` ;"
+                        "CREATE DATABASE IF NOT EXISTS notebookdev_db;"
                 ;
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
@@ -46,43 +46,43 @@ public class PrepareDB {
 
     public static void createTables(){
         String CREATE_TABLE_notebookdev_tbl =
-                "CREATE TABLE `notebookdev_db`.`notebookdev_tbl` (" +
-                        "  `id` INT NOT NULL AUTO_INCREMENT," +
-                        "  `name` VARCHAR(50) NOT NULL," +
-                        "  `country` VARCHAR(45) NULL," +
-                        "  `employeesNumber` INT NULL," +
-                        "  `shortInfo` VARCHAR(300) NULL," +
-                        "  `logo` VARCHAR(45) NULL," +
-                        "  `photo`   MEDIUMBLOB null," +
-                        "  PRIMARY KEY (`id`)," +
-                        "  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);";
+                "CREATE TABLE notebookdev_db.notebookdev_tbl (" +
+                        "  id INT NOT NULL AUTO_INCREMENT," +
+                        "  name VARCHAR(50) NOT NULL," +
+                        "  country VARCHAR(45) NULL," +
+                        "  employeesNumber INT NULL," +
+                        "  shortInfo VARCHAR(300) NULL," +
+                        "  logo VARCHAR(45) NULL," +
+                        "  photo   MEDIUMBLOB null," +
+                        "  PRIMARY KEY (id)," +
+                        "  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);";
 
 
         String CREATE_TABLE_devHistory_tbl =
-                "CREATE TABLE `notebookdev_db`.`devhistory_tbl` (\n" +
-                        "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                        "  `devId` INT NOT NULL,\n" +
-                        "  `devhistory` VARCHAR(500) NULL,\n" +
-                        "  PRIMARY KEY (`id`),\n" +
-                        "  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,\n" +
-                        "  INDEX `id_idx` (`devId` ASC) VISIBLE,\n" +
-                        "  CONSTRAINT `devIdKey`\n" +
-                        "    FOREIGN KEY (`devId`)\n" +
-                        "    REFERENCES `notebookdev_db`.`notebookdev_tbl` (`id`)\n" +
+                "CREATE TABLE notebookdev_db.devhistory_tbl (\n" +
+                        "  id INT NOT NULL AUTO_INCREMENT,\n" +
+                        "  devId INT NOT NULL,\n" +
+                        "  devhistory VARCHAR(500) NULL,\n" +
+                        "  PRIMARY KEY (id),\n" +
+                        "  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,\n" +
+                        "  INDEX id_idx (devId ASC) VISIBLE,\n" +
+                        "  CONSTRAINT devIdKey\n" +
+                        "    FOREIGN KEY (devId)\n" +
+                        "    REFERENCES notebookdev_db.notebookdev_tbl (id)\n" +
                         "    ON DELETE CASCADE\n" +
                         "    ON UPDATE CASCADE);";
 
         String CREATE_TABLE_devHistoryPhoto_tbl =
-        "CREATE TABLE `notebookdev_db`.`devhistory_photo_tbl` (\n" +
-                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `photo` MEDIUMBLOB NOT NULL,\n" +
-                "  `devhistoryId` INT NOT NULL,\n" +
-                "  PRIMARY KEY (`id`),\n" +
-                "  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,\n" +
-                "  INDEX `historyKey_idx` (`devhistoryId` ASC) VISIBLE,\n" +
-                "  CONSTRAINT `historyKey`\n" +
-                "    FOREIGN KEY (`devhistoryId`)\n" +
-                "    REFERENCES `notebookdev_db`.`devhistory_tbl` (`id`)\n" +
+        "CREATE TABLE notebookdev_db.devhistory_photo_tbl (\n" +
+                "  id INT NOT NULL AUTO_INCREMENT,\n" +
+                "  photo MEDIUMBLOB NOT NULL,\n" +
+                "  devhistoryId INT NOT NULL,\n" +
+                "  PRIMARY KEY (id),\n" +
+                "  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,\n" +
+                "  INDEX historyKey_idx (devhistoryId ASC) VISIBLE,\n" +
+                "  CONSTRAINT historyKey\n" +
+                "    FOREIGN KEY (devhistoryId)\n" +
+                "    REFERENCES notebookdev_db.devhistory_tbl (id)\n" +
                 "    ON DELETE CASCADE\n" +
                 "    ON UPDATE CASCADE);";
 
