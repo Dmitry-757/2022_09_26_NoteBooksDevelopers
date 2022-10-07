@@ -1,16 +1,12 @@
 package org.dng.NoteBooksDevelopers.DAO;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 
 public class PrepareDB {
     public static void prepareBase() {
@@ -59,32 +55,34 @@ public class PrepareDB {
 
 
         String CREATE_TABLE_devHistory_tbl =
-                "CREATE TABLE notebookdev_db.devhistory_tbl (\n" +
-                        "  id INT NOT NULL AUTO_INCREMENT,\n" +
-                        "  devId INT NOT NULL,\n" +
-                        "  devhistory VARCHAR(500) NULL,\n" +
-                        "  PRIMARY KEY (id),\n" +
-                        "  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,\n" +
-                        "  INDEX id_idx (devId ASC) VISIBLE,\n" +
-                        "  CONSTRAINT devIdKey\n" +
-                        "    FOREIGN KEY (devId)\n" +
-                        "    REFERENCES notebookdev_db.notebookdev_tbl (id)\n" +
-                        "    ON DELETE CASCADE\n" +
-                        "    ON UPDATE CASCADE);";
+                """
+                        CREATE TABLE notebookdev_db.devhistory_tbl (
+                          id INT NOT NULL AUTO_INCREMENT,
+                          devId INT NOT NULL,
+                          devhistory VARCHAR(500) NULL,
+                          PRIMARY KEY (id),
+                          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+                          INDEX id_idx (devId ASC) VISIBLE,
+                          CONSTRAINT devIdKey
+                            FOREIGN KEY (devId)
+                            REFERENCES notebookdev_db.notebookdev_tbl (id)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE);""";
 
         String CREATE_TABLE_devHistoryPhoto_tbl =
-        "CREATE TABLE notebookdev_db.devhistory_photo_tbl (\n" +
-                "  id INT NOT NULL AUTO_INCREMENT,\n" +
-                "  photo MEDIUMBLOB NOT NULL,\n" +
-                "  devhistoryId INT NOT NULL,\n" +
-                "  PRIMARY KEY (id),\n" +
-                "  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,\n" +
-                "  INDEX historyKey_idx (devhistoryId ASC) VISIBLE,\n" +
-                "  CONSTRAINT historyKey\n" +
-                "    FOREIGN KEY (devhistoryId)\n" +
-                "    REFERENCES notebookdev_db.devhistory_tbl (id)\n" +
-                "    ON DELETE CASCADE\n" +
-                "    ON UPDATE CASCADE);";
+                """
+                        CREATE TABLE notebookdev_db.devhistory_photo_tbl (
+                          id INT NOT NULL AUTO_INCREMENT,
+                          photo MEDIUMBLOB NOT NULL,
+                          devhistoryId INT NOT NULL,
+                          PRIMARY KEY (id),
+                          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+                          INDEX historyKey_idx (devhistoryId ASC) VISIBLE,
+                          CONSTRAINT historyKey
+                            FOREIGN KEY (devhistoryId)
+                            REFERENCES notebookdev_db.devhistory_tbl (id)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE);""";
 
 
         try (Connection connection = DBConnection.getConnection();
@@ -108,7 +106,7 @@ public class PrepareDB {
                 "INSERT notebookdev_db.notebookdev_tbl(name, country, employeesNumber, shortInfo, logo, photo) \n" +
                         "VALUES (?, ?, ?, ?, ?, ?)";
 //                        "VALUES ('Dell', 'USA', 10000, 'Manufacturer of Dell noteBooks','just logo');";
-        FileInputStream fis = null;
+        FileInputStream fis;
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(fillStr1)
         ) {
@@ -141,7 +139,7 @@ public class PrepareDB {
             ps.setBinaryStream(6, fis);
             ps.addBatch();
 
-            int rows[] = ps.executeBatch();
+            int[] rows = ps.executeBatch();
             System.out.println("to notebookdev_tbl where added " + (rows.length) +" record(s)");
             connection.commit();
 
@@ -149,8 +147,6 @@ public class PrepareDB {
         }
         catch (SQLException  e) {
             e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -165,7 +161,7 @@ public class PrepareDB {
                         "VALUES (?, ?)";
 
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(fillStr1);
+             PreparedStatement ps = connection.prepareStatement(fillStr1)
         ) {
             connection.setAutoCommit(false);
 
@@ -195,7 +191,7 @@ public class PrepareDB {
             ps.addBatch();
 
 
-            int rows[] = ps.executeBatch();
+            int[] rows = ps.executeBatch();
             System.out.println("to devhistory_tbl where added " + (rows.length) +" record(s)");
             connection.commit();
 
@@ -210,7 +206,7 @@ public class PrepareDB {
                 "INSERT notebookdev_db.devhistory_photo_tbl(devhistoryId, photo) \n" +
                         "VALUES (?, ?)";
         try (Connection connection = DBConnection.getConnection();
-             PreparedStatement ps = connection.prepareStatement(fillStr1);
+             PreparedStatement ps = connection.prepareStatement(fillStr1)
         ) {
             connection.setAutoCommit(false);
             FileInputStream fis;
@@ -245,7 +241,7 @@ public class PrepareDB {
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
-            int rows[] = ps.executeBatch();
+            int[] rows = ps.executeBatch();
             System.out.println("to devhistory_photo_tbl where added " + (rows.length) +" record(s)");
             connection.commit();
 
