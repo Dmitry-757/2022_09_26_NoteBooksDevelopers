@@ -7,7 +7,7 @@ import java.util.*;
 
 public class DAO {
 
-    public static boolean isExistById(long id) {
+    public static boolean isExistDevById(long id) {
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
         ) {
@@ -47,7 +47,7 @@ public class DAO {
     }
 
 
-    public static  List<NotebookDeveloper> getAll() {
+    public static  List<NotebookDeveloper> getAllDev() {
 
         String sql_query = "Select * from notebookdev_db.notebookdev_tbl;";
         List < NotebookDeveloper > units = new LinkedList<>();
@@ -77,25 +77,6 @@ public class DAO {
     }
 
 
-//    public static List<String> getDevHistoryById(long id) {
-//        List<String> historyList = new LinkedList<>();
-//        String sql_query = "select * from notebookdev_db.devhistory_tbl where devId = "+id+";";
-//        try (Connection connection = DBConnection.getConnection();
-//             Statement statement = connection.createStatement()
-//        ) {
-//            ResultSet resultSet = statement.executeQuery(sql_query);
-//            while (resultSet.next()) {
-//                String devHistory = resultSet.getString("devhistory");
-////                byte[] photo = resultSet.getBytes("photo");
-//                historyList.add(devHistory);
-//            }
-//            return historyList;
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
 
     public static Map<Integer, String> getDevHistoryById(long id) {
         Map<Integer, String> historyMap = new HashMap<>();
@@ -118,18 +99,20 @@ public class DAO {
     }
 
 
-    public static List<byte[]> getHistoryPhotosByDevHistoryId(long id) {
-        List<byte[]> historyPhotoList = new LinkedList<>();
-        String sql_query = "select * from notebookdev_db.devhistory_photo_tbl where devhistoryId = "+id+";";
+
+    public static List<byte[]> getPhotosById(String sql_query, long id) {
+        List<byte[]> photoList = new LinkedList<>();
+//        String sql_query = "select * from notebookdev_db.news_photo_tbl where newsId = "+id+";";
+
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
         ) {
             ResultSet resultSet = statement.executeQuery(sql_query);
             while (resultSet.next()) {
                 byte[] photo = resultSet.getBytes("photo");
-                historyPhotoList.add(photo);
+                photoList.add(photo);
             }
-            return historyPhotoList;
+            return photoList;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,25 +121,76 @@ public class DAO {
     }
 
 
-    public static ResultSet getHistoryPhotosDevHistoryByDevId(long id) {
-        ResultSet resultSet;
+    public static List<byte[]> getNewsPhotosById(long id) {
+        String sql_query = "select * from notebookdev_db.news_photo_tbl where newsId = "+id+";";
+        return getPhotosById(sql_query, id);
+    }
+    public static List<byte[]> getShortNewsPhotosById(long id) {
+        String sql_query = "select * from notebookdev_db.shortnews_tbl where id = "+id+";";
+        return getPhotosById(sql_query, id);
+    }
 
-//        String sql_query = "select * from notebookdev_db.devhistory_photo_tbl where devhistoryId = "+id+";";
-        String sql_query = """
-                select * from devhistory_photo_tbl as ph
-                join devhistory_tbl as h on ph.devhistoryId=h.id
-                where h.devId=
-                """+id;
+    public static List<byte[]> getHistoryPhotosByDevHistoryId(long id) {
+//        List<byte[]> historyPhotoList = new LinkedList<>();
+        String sql_query = "select * from notebookdev_db.devhistory_photo_tbl where devhistoryId = "+id+";";
+//        try (Connection connection = DBConnection.getConnection();
+//             Statement statement = connection.createStatement()
+//        ) {
+//            ResultSet resultSet = statement.executeQuery(sql_query);
+//            while (resultSet.next()) {
+//                byte[] photo = resultSet.getBytes("photo");
+//                historyPhotoList.add(photo);
+//            }
+//            return historyPhotoList;
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+        return getPhotosById(sql_query, id);
+    }
 
+
+
+//    public static ResultSet getHistoryPhotosDevHistoryByDevId(long id) {
+//        ResultSet resultSet;
+//
+//        String sql_query = """
+//                select * from devhistory_photo_tbl as ph
+//                join devhistory_tbl as h on ph.devhistoryId=h.id
+//                where h.devId=
+//                """+id;
+//
+//        try (Connection connection = DBConnection.getConnection();
+//             Statement statement = connection.createStatement()
+//        ) {
+//            return statement.executeQuery(sql_query);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
+
+
+    public static Map<Integer, String> getNews() {
+        Map<Integer, String> newsMap = new HashMap<>();
+        String sql_query = "select * from notebookdev_db.shortnews_tbl;";
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
         ) {
-            return statement.executeQuery(sql_query);
+            ResultSet resultSet = statement.executeQuery(sql_query);
+            while (resultSet.next()) {
+                int recId = resultSet.getInt("id");
+                String newsRec = resultSet.getString("shortNews");
+                newsMap.put(recId,newsRec);
+            }
+            return newsMap;
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-
 
 }

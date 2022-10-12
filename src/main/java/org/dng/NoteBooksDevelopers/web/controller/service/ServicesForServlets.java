@@ -47,6 +47,6 @@ public class ServicesForServlets {
 //        devList.add(new NotebookDeveloper(3,"Gnusmas", "South Korea", "logo", 30_000,
 //                "short info about Gnusmas company. It has a lot of employees, but they are little" ));
 //        return devList;
-        return  DAO.getAll();
+        return  DAO.getAllDev();
     }
 }

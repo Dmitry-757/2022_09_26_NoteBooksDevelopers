@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>История развития производителя</title>
+    <title>Новости</title>
     <link rel="stylesheet" href="../css/commonInfo.css" th:href="@{/css/commonInfo.css}" />
     <style>
         /* form {
@@ -15,7 +15,8 @@
 </head>
 
 <body>
-<h1 th:text="'История развития '+${dev.getName()}">История развития производителя</h1>
+<!--<h1 th:text="'Новости '+${dev.getName()}">Новости</h1>-->
+<h1>Новости</h1>
 <br>
 <a href="/" th:href="${ctxPath}+'/main'">Главная</a>
 <br>
@@ -23,12 +24,12 @@
 <br>
 
 
-<div th:each="historyRec, iterStat : ${historyMap}">
+<div th:each="newsRec, iterStat : ${newsMap}">
     <ul>
-        <li th:text="${historyRec.getValue()} ">some history record </li>
+        <li th:text="${newsRec.getValue()} ">some news record </li>
 
         <div style="text-align: center">
-            <img style="width: 50%" th:src="${ctxPath}+'/historyImg?historyId='+${historyRec.getKey()}" src="../img/notebook.jpg" alt="laptop">
+            <img style="width: 30%" th:src="${ctxPath}+'/newsImg?newsId='+${newsRec.getKey()}" src="../img/notebook.jpg" alt="news">
         </div>
 
     </ul>
