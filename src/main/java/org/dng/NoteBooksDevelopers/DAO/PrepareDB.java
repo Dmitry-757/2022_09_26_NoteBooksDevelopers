@@ -109,6 +109,21 @@ public class PrepareDB {
                             ON UPDATE CASCADE);
                             """;
 
+        String CREATE_TABLE_DetailedNews_tbl =
+                """
+                        CREATE TABLE notebookdev_db.detailed_news_tbl (
+                          id INT NOT NULL AUTO_INCREMENT,
+                          shortNewsId INT NOT NULL,
+                          news VARCHAR(500) NULL,
+                          PRIMARY KEY (id),
+                          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+                          INDEX shortNewsKey_idx (shortNewsId ASC) VISIBLE,
+                          CONSTRAINT shortNewsKey
+                            FOREIGN KEY (shortNewsId)
+                            REFERENCES notebookdev_db.shortnews_tbl (id)
+                            ON DELETE NO ACTION
+                            ON UPDATE NO ACTION);                        
+                        """;
 
 
         try (Connection connection = DBConnection.getConnection();
@@ -119,6 +134,7 @@ public class PrepareDB {
             statement.addBatch(CREATE_TABLE_devHistoryPhoto_tbl);
             statement.addBatch(CREATE_TABLE_shortNews_tbl);
             statement.addBatch(CREATE_TABLE_NewsPhoto_tbl);
+            statement.addBatch(CREATE_TABLE_DetailedNews_tbl);
 
             statement.executeBatch();
 

@@ -193,4 +193,25 @@ public class DAO {
         return null;
     }
 
+    public static Map<Integer, String> getDetailedNewsByShortNewsId(long id) {
+        Map<Integer, String> newsMap = new HashMap<>();
+        String sql_query = "select * from notebookdev_db.detailed_news_tbl where shortNewsId = "+id+";";
+        try (Connection connection = DBConnection.getConnection();
+             Statement statement = connection.createStatement()
+        ) {
+            ResultSet resultSet = statement.executeQuery(sql_query);
+            while (resultSet.next()) {
+                int recId = resultSet.getInt("id");
+                String newsRec = resultSet.getString("shortNews");
+                newsMap.put(recId,newsRec);
+            }
+            return newsMap;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }

@@ -36,7 +36,7 @@
         <a th:href="${ctxPath}+'/news/detailedNews?newsId='+${newsRec.getKey()}" th:text="${newsRec.getValue()} ">some news record </a>
 
         <div style="text-align: center">
-            <img style="width: 30%" th:src="${ctxPath}+'/newsImg?newsId='+${newsRec.getKey()}" src="../img/notebook.jpg" alt="news">
+            <img style="width: 30%" th:src="${ctxPath}+'/DetailedNewsImg?newsId='+${newsRec.getKey()}" src="../img/notebook.jpg" alt="news">
         </div>
         <br>
         <hr>
