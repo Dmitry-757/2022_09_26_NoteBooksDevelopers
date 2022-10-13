@@ -100,7 +100,7 @@ public class DAO {
 
 
 
-    public static List<byte[]> getPhotosById(String sql_query, long id) {
+    public static List<byte[]> getPhotosById(String sql_query) {
         List<byte[]> photoList = new LinkedList<>();
 //        String sql_query = "select * from notebookdev_db.news_photo_tbl where newsId = "+id+";";
 
@@ -123,11 +123,11 @@ public class DAO {
 
     public static List<byte[]> getNewsPhotosById(long id) {
         String sql_query = "select * from notebookdev_db.news_photo_tbl where newsId = "+id+";";
-        return getPhotosById(sql_query, id);
+        return getPhotosById(sql_query);
     }
     public static List<byte[]> getShortNewsPhotosById(long id) {
         String sql_query = "select * from notebookdev_db.shortnews_tbl where id = "+id+";";
-        return getPhotosById(sql_query, id);
+        return getPhotosById(sql_query);
     }
 
     public static List<byte[]> getHistoryPhotosByDevHistoryId(long id) {
@@ -147,7 +147,7 @@ public class DAO {
 //            e.printStackTrace();
 //        }
 //        return null;
-        return getPhotosById(sql_query, id);
+        return getPhotosById(sql_query);
     }
 
 
@@ -202,7 +202,7 @@ public class DAO {
             ResultSet resultSet = statement.executeQuery(sql_query);
             while (resultSet.next()) {
                 int recId = resultSet.getInt("id");
-                String newsRec = resultSet.getString("shortNews");
+                String newsRec = resultSet.getString("news");
                 newsMap.put(recId,newsRec);
             }
             return newsMap;
@@ -211,6 +211,11 @@ public class DAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static List<byte[]> getDetailedNewsPhotosByDetailedNewsId(long id) {
+        String sql_query = "select * from notebookdev_db.detailednews_photo_tbl where detailedNewsId = "+id+";";
+        return getPhotosById(sql_query);
     }
 
 

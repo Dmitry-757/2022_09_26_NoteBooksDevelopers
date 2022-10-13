@@ -38,12 +38,13 @@ public class DetailedNewsServlet extends HttpServlet {
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
 
-        long newsId=0;
+        long newsId = 0;
         String newsIdStr;
         if (  (newsIdStr = request.getParameter("newsId")) != null){
             newsId = Long.parseLong(newsIdStr);
         }
-//        System.out.println("newsId = "+ newsId);
+
+        int photosNumber = DAO.getDetailedNewsPhotosByDetailedNewsId(newsId).size();
 
         final IWebExchange webExchange = this.application.buildExchange(request, response);
 //        final IWebRequest webRequest = webExchange.getRequest();
@@ -54,6 +55,7 @@ public class DetailedNewsServlet extends HttpServlet {
         ctx.setVariable("ctxPath", request.getContextPath());
 
         ctx.setVariable("newsMap", DAO.getDetailedNewsByShortNewsId(newsId));
+        ctx.setVariable("photosNumber",photosNumber);
 
         templateEngine.process("DetailedNews", ctx, writer);
     }

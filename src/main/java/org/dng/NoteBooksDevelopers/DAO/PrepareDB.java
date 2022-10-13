@@ -42,16 +42,16 @@ public class PrepareDB {
 
     public static void createTables(){
         String CREATE_TABLE_notebookdev_tbl =
-                "CREATE TABLE notebookdev_db.notebookdev_tbl (" +
-                        "  id INT NOT NULL AUTO_INCREMENT," +
-                        "  name VARCHAR(50) NOT NULL," +
-                        "  country VARCHAR(45) NULL," +
-                        "  employeesNumber INT NULL," +
-                        "  shortInfo VARCHAR(300) NULL," +
-                        "  logo VARCHAR(45) NULL," +
-                        "  photo   MEDIUMBLOB null," +
-                        "  PRIMARY KEY (id)," +
-                        "  UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);";
+                """
+                          CREATE TABLE notebookdev_db.notebookdev_tbl (
+                          id INT NOT NULL AUTO_INCREMENT,
+                          name VARCHAR(50) NOT NULL,
+                          country VARCHAR(45) NULL,
+                          employeesNumber INT NULL,
+                          shortInfo VARCHAR(300) NULL,
+                          logo VARCHAR(45) NULL,
+                          PRIMARY KEY (id),
+                          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);""";
 
 
         String CREATE_TABLE_devHistory_tbl =
@@ -93,21 +93,21 @@ public class PrepareDB {
                           PRIMARY KEY (id),
                           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);""";
 
-        String CREATE_TABLE_NewsPhoto_tbl =
-                """
-                        CREATE TABLE notebookdev_db.news_photo_tbl (
-                          id INT NOT NULL AUTO_INCREMENT,
-                          photo MEDIUMBLOB NOT NULL,
-                          newsId INT NOT NULL,
-                          PRIMARY KEY (id),
-                          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
-                          INDEX newsKey_idx (newsId ASC) VISIBLE,
-                          CONSTRAINT newsKey
-                            FOREIGN KEY (newsId)
-                            REFERENCES notebookdev_db.shortnews_tbl (id)
-                            ON DELETE CASCADE
-                            ON UPDATE CASCADE);
-                            """;
+//        String CREATE_TABLE_NewsPhoto_tbl =
+//                """
+//                        CREATE TABLE notebookdev_db.news_photo_tbl (
+//                          id INT NOT NULL AUTO_INCREMENT,
+//                          photo MEDIUMBLOB NOT NULL,
+//                          newsId INT NOT NULL,
+//                          PRIMARY KEY (id),
+//                          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+//                          INDEX newsKey_idx (newsId ASC) VISIBLE,
+//                          CONSTRAINT newsKey
+//                            FOREIGN KEY (newsId)
+//                            REFERENCES notebookdev_db.shortnews_tbl (id)
+//                            ON DELETE CASCADE
+//                            ON UPDATE CASCADE);
+//                            """;
 
         String CREATE_TABLE_DetailedNews_tbl =
                 """
@@ -122,9 +122,22 @@ public class PrepareDB {
                             FOREIGN KEY (shortNewsId)
                             REFERENCES notebookdev_db.shortnews_tbl (id)
                             ON DELETE NO ACTION
-                            ON UPDATE NO ACTION);                        
-                        """;
+                            ON UPDATE NO ACTION);""";
 
+        String CREATE_TABLE_DetailedNewsPhoto_tbl =
+                """
+                        CREATE TABLE `notebookdev_db`.`detailednews_photo_tbl` (
+                          `id` INT NOT NULL AUTO_INCREMENT,
+                          `detailedNewsId` INT NOT NULL,
+                          `photo` MEDIUMBLOB NULL,
+                          PRIMARY KEY (`id`),
+                          UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+                          INDEX `dnewskey_idx` (`detailedNewsId` ASC) VISIBLE,
+                          CONSTRAINT `dnewskey`
+                            FOREIGN KEY (`detailedNewsId`)
+                            REFERENCES `notebookdev_db`.`detailed_news_tbl` (`id`)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE);""";
 
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
@@ -133,8 +146,9 @@ public class PrepareDB {
             statement.addBatch(CREATE_TABLE_devHistory_tbl);
             statement.addBatch(CREATE_TABLE_devHistoryPhoto_tbl);
             statement.addBatch(CREATE_TABLE_shortNews_tbl);
-            statement.addBatch(CREATE_TABLE_NewsPhoto_tbl);
+//            statement.addBatch(CREATE_TABLE_NewsPhoto_tbl);
             statement.addBatch(CREATE_TABLE_DetailedNews_tbl);
+            statement.addBatch(CREATE_TABLE_DetailedNewsPhoto_tbl);
 
             statement.executeBatch();
 
@@ -394,9 +408,87 @@ public class PrepareDB {
         }
     }
 
-    public static void fillNewsPhoto_tbl(){
+//    public static void fillNewsPhoto_tbl(){
+//        String fillStr1 =
+//                "INSERT notebookdev_db.news_photo_tbl(newsId, photo) \n" +
+//                        "VALUES (?, ?)";
+//        try (Connection connection = DBConnection.getConnection();
+//             PreparedStatement ps = connection.prepareStatement(fillStr1)
+//        ) {
+//            connection.setAutoCommit(false);
+//            FileInputStream fis;
+//
+//            ps.setInt(1,1);
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n1.jpg");
+//            ps.setBinaryStream(2, fis);
+//            ps.addBatch();
+//
+//            ps.setInt(1,2);
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n1.jpg");
+//            ps.setBinaryStream(2, fis);
+//            ps.addBatch();
+//
+//            ps.setInt(1,3);
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n1.jpg");
+//            ps.setBinaryStream(2, fis);
+//            ps.addBatch();
+//
+//            int[] rows = ps.executeBatch();
+//            System.out.println("to news_photo_tbl where added " + (rows.length) +" record(s)");
+//            connection.commit();
+//
+//            fis.close();
+//
+//        }
+//        catch (SQLException | FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+
+
+    public static void fillDetailedNews_tbl(){
+
         String fillStr1 =
-                "INSERT notebookdev_db.news_photo_tbl(newsId, photo) \n" +
+                "INSERT notebookdev_db.detailed_news_tbl(shortNewsId, news) \n" +
+                        "VALUES (?, ?)";
+
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(fillStr1)
+        ) {
+            connection.setAutoCommit(false);
+
+            ps.setInt(1, 1);
+            ps.setString(2, "Детализированная новость 1");
+            ps.addBatch();
+
+            ps.setInt(1, 2);
+            ps.setString(2, "Детализированная новость 2");
+            ps.addBatch();
+
+            ps.setInt(1, 3);
+            ps.setString(2, "Детализированная новость 3");
+            ps.addBatch();
+
+            ps.setInt(1, 4);
+            ps.setString(2, "Детализированная новость 4 - Советский слон - самый слоновий в мире!");
+            ps.addBatch();
+
+            int[] rows = ps.executeBatch();
+            System.out.println("to detailed_news_tbl where added " + (rows.length) +" record(s)");
+            connection.commit();
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void fillDetailedNews_photo_tbl(){
+        String fillStr1 =
+                "INSERT notebookdev_db.detailednews_photo_tbl(detailedNewsId, photo) \n" +
                         "VALUES (?, ?)";
         try (Connection connection = DBConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(fillStr1)
@@ -405,22 +497,48 @@ public class PrepareDB {
             FileInputStream fis;
 
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n1.jpg");
+            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n1_1.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,1);
+            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n1_2.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n1.jpg");
+            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n2_1.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,2);
+            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n2_2.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n1.jpg");
+            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n3_1.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,3);
+            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n3_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,3);
+            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n3_3.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
+            ps.setInt(1,4);
+            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n4_1.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,4);
+            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n4_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
+
             int[] rows = ps.executeBatch();
-            System.out.println("to news_photo_tbl where added " + (rows.length) +" record(s)");
+            System.out.println("to detailedNews_photo_tbl where added " + (rows.length) +" record(s)");
             connection.commit();
 
             fis.close();
@@ -445,6 +563,8 @@ public class PrepareDB {
         fillDevHistory_tbl();
         fillDevHistoryPhoto_tbl();
         fillNews_tbl();
-        fillNewsPhoto_tbl();
+        //fillNewsPhoto_tbl();
+        fillDetailedNews_tbl();
+        fillDetailedNews_photo_tbl();
     }
 }
