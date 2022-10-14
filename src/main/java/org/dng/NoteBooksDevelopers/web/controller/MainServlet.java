@@ -3,6 +3,7 @@ package org.dng.NoteBooksDevelopers.web.controller;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.dng.NoteBooksDevelopers.DAO.CreateAndFillDB;
 import org.dng.NoteBooksDevelopers.DAO.DAO;
 import org.dng.NoteBooksDevelopers.Model.NotebookDeveloper;
 import org.dng.NoteBooksDevelopers.web.controller.service.ServicesForServlets;
@@ -55,4 +56,10 @@ public class MainServlet extends HttpServlet {
         templateEngine.process("main", ctx, writer);
     }
 
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        CreateAndFillDB.makeDB();
+    }
 }
