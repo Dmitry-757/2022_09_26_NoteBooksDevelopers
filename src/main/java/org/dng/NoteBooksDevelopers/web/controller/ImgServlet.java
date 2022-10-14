@@ -9,7 +9,7 @@ import org.dng.NoteBooksDevelopers.Model.NotebookDeveloper;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet(name = "ImgServlet", urlPatterns = { "/img/*" })
+@WebServlet(name = "ImgServlet", urlPatterns = { "/img/developers/*" })
 //@WebServlet(name = "ImgServlet", value = "/img")
 public class ImgServlet extends HttpServlet {
     @Override
