@@ -26,6 +26,7 @@ public class MainServlet extends HttpServlet {
     public void init(ServletConfig servletConfig) {
         this.application = JakartaServletWebApplication.buildApplication(servletConfig.getServletContext());
         this.templateEngine = ServicesForServlets.buildTemplateEngine(this.application);
+//        CreateAndFillDB.makeDB(); // to do that it needs to set other path for using in tomcat
 
     }
 
@@ -57,9 +58,4 @@ public class MainServlet extends HttpServlet {
     }
 
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        CreateAndFillDB.makeDB();
-    }
 }
