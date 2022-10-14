@@ -50,6 +50,7 @@ public class PrepareDB {
                           employeesNumber INT NULL,
                           shortInfo VARCHAR(300) NULL,
                           logo VARCHAR(45) NULL,
+                          photo MEDIUMBLOB NOT NULL,
                           PRIMARY KEY (id),
                           UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE);""";
 
