@@ -98,6 +98,25 @@ public class DAO {
         return null;
     }
 
+    public static Map<Integer, String> getDevModelsById(long id) {
+        Map<Integer, String> historyMap = new HashMap<>();
+        String sql_query = "select * from notebookdev_db.models_tbl where devId = "+id+";";
+        try (Connection connection = DBConnection.getConnection();
+             Statement statement = connection.createStatement()
+        ) {
+            ResultSet resultSet = statement.executeQuery(sql_query);
+            while (resultSet.next()) {
+                int recId = resultSet.getInt("id");
+                String modelName = resultSet.getString("modelName");
+                historyMap.put(recId,modelName);
+            }
+            return historyMap;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     public static List<byte[]> getPhotosById(String sql_query) {
@@ -147,6 +166,11 @@ public class DAO {
 //            e.printStackTrace();
 //        }
 //        return null;
+        return getPhotosById(sql_query);
+    }
+
+    public static List<byte[]> getModelsPhotoById(long id) {
+        String sql_query = "select * from notebookdev_db.models_tbl where id = "+id+";";
         return getPhotosById(sql_query);
     }
 

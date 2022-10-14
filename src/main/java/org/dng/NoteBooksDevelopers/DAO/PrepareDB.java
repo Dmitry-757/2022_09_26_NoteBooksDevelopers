@@ -140,6 +140,24 @@ public class PrepareDB {
                             ON DELETE CASCADE
                             ON UPDATE CASCADE);""";
 
+
+        String CREATE_TABLE_Models_tbl =
+                """
+                        CREATE TABLE notebookdev_db.models_tbl (
+                          id INT NOT NULL AUTO_INCREMENT,
+                          devId INT NOT NULL,
+                          modelName VARCHAR(500) NULL,
+                          photo MEDIUMBLOB NULL,
+                          PRIMARY KEY (id),
+                          UNIQUE INDEX id_UNIQUE (id ASC) VISIBLE,
+                          INDEX id_idx (devId ASC) VISIBLE,
+                          CONSTRAINT models2devIdKey
+                            FOREIGN KEY (devId)
+                            REFERENCES notebookdev_db.notebookdev_tbl (id)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE);""";
+
+
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
         ) {
@@ -150,6 +168,7 @@ public class PrepareDB {
 //            statement.addBatch(CREATE_TABLE_NewsPhoto_tbl);
             statement.addBatch(CREATE_TABLE_DetailedNews_tbl);
             statement.addBatch(CREATE_TABLE_DetailedNewsPhoto_tbl);
+            statement.addBatch(CREATE_TABLE_Models_tbl);
 
             statement.executeBatch();
 
@@ -498,42 +517,42 @@ public class PrepareDB {
             FileInputStream fis;
 
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n1_1.jpg");
+            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n1_1.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n1_2.jpg");
+            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n1_2.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n2_1.jpg");
+            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n2_1.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n2_2.jpg");
+            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n2_2.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n3_1.jpg");
+            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_1.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n3_2.jpg");
+            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_2.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n3_3.jpg");
+            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_3.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,4);
-            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n4_1.jpg");
+            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n4_1.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,4);
-            fis = new FileInputStream("src/main/webapp/img/detailedNewsPhoto/n4_2.jpg");
+            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n4_2.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
@@ -553,6 +572,83 @@ public class PrepareDB {
     }
 
 
+    public static void fillModels_tbl(){
+        String fillStr1 =
+                "INSERT notebookdev_db.models_tbl(devId, modelName, photo) \n" +
+                        "VALUES (?, ?, ?)";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(fillStr1)
+        ) {
+            connection.setAutoCommit(false);
+            FileInputStream fis;
+
+            //dell
+            ps.setInt(1,1); //devId
+            ps.setString(2, "dell Full HD (1920x1080), IPS, Intel Core i3-1115G4, ядра: 2 х 3 ГГц, " +
+                    "RAM 8 ГБ, SSD 256 ГБ, Intel UHD Graphics , Linux");
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/dell_1.jpg");
+            ps.setBinaryStream(3, fis);
+            ps.addBatch();
+
+            ps.setInt(1,1); //devId
+            ps.setString(2, "dell Full HD (1920x1080), WVA (TN+film), Intel Core i5-1035G1, " +
+                    "ядра: 4 х 1 ГГц, RAM 8 ГБ, SSD 256 ГБ, Intel UHD Graphics , Linux");
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/dell_2.jpg");
+            ps.setBinaryStream(3, fis);
+            ps.addBatch();
+
+            //hp
+            ps.setInt(1,2); //devId
+            ps.setString(2, "hp 15.6\" Ноутбук Haier U1520HD черный [Full HD (1920x1080), IPS, " +
+                    "Intel Celeron N4020, ядра: 2 х 1.1 ГГц, RAM 4 ГБ, HDD 1000 ГБ, eMMC 64 ГБ, Intel HD Graphics , без ОС]");
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/hp_1.jpg");
+            ps.setBinaryStream(3, fis);
+            ps.addBatch();
+
+            ps.setInt(1,2); //devId
+            ps.setString(2, "hp " +
+                    "Full HD (1920x1080), IPS, Intel Pentium Silver N6000, ядра: 4 х 1.1 ГГц, RAM 4 ГБ, " +
+                    "SSD 128 ГБ, Intel UHD Graphics , Windows 10 Home Single Language");
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/hp_2.jpg");
+            ps.setBinaryStream(3, fis);
+            ps.addBatch();
+
+            //samsung
+            ps.setInt(1,3); //devId
+            ps.setString(2, "samsung 15-дюймовый ноутбук Samsung 900X4C-A01 — ультратонкий, легкий, " +
+                    "изящный и элегантный мобильный компьютер. Его корпус выполнен из особого материала — дюралюминия, " +
+                    "который обеспечивает компактность и прочность устройства. " +
+                    "Samsung 900X4C создан на базе двухъядерного процессора Intel Core i5-3317U, оснащен 8 Гб оперативной " +
+                    "памяти и встроенной графической подсистемой Intel HD Graphics 4000");
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/samsung_1.jpg");
+            ps.setBinaryStream(3, fis);
+            ps.addBatch();
+
+            ps.setInt(1,3); //devId
+            ps.setString(2, "samsung Ноутбук Samsung RF712 выполнен в стильном дизайне, " +
+                    "он позволяет наслаждаться всеми видами 3D-развлечений. " +
+                    "В модели установлен 17,3-дюймовый HD-дисплей с технологией «SuperBright Plus» и LED-подсветкой, " +
+                    "он на 100% ярче обычных 3D-экранов и отображает четкую, детализированную, насыщенную картинку с " +
+                    "натуральной цветопередачей при просмотре в 3D-очках.");
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/samsung_2.jpg");
+            ps.setBinaryStream(3, fis);
+            ps.addBatch();
+
+
+
+            int[] rows = ps.executeBatch();
+            System.out.println("to models_tbl where added " + (rows.length) +" record(s)");
+            connection.commit();
+
+            fis.close();
+
+        }
+        catch (SQLException | FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
@@ -567,5 +663,6 @@ public class PrepareDB {
         //fillNewsPhoto_tbl();
         fillDetailedNews_tbl();
         fillDetailedNews_photo_tbl();
+        fillModels_tbl();
     }
 }

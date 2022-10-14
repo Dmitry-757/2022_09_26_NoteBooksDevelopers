@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Модели производителя</title>
+    <link rel="stylesheet" href="../css/commonInfo.css" th:href="@{/css/commonInfo.css}" />
+    <style>
+        /* form {
+            border: 1px solid #87CEEB;
+            margin: 10px;
+            padding: 10px;
+        } */
+    </style>
+</head>
+
+<body>
+<h1 th:text="'Models of '+${dev.getName()}">Модели производителя</h1>
+<br>
+<a href="/" th:href="${ctxPath}+'/main'">Главная</a>
+<br>
+<hr>
+<br>
+
+
+<div th:each="modelRec, iterStat : ${modelsMap}">
+    <ul>
+        <li th:text="${modelRec.getValue()} ">some model record </li>
+
+        <div style="text-align: center">
+            <img style="width: 50%" th:src="${ctxPath}+'/modelsPhoto?modelId='+${modelRec.getKey()}" src="../img/notebook.jpg" alt="laptop">
+        </div>
+
+    </ul>
+</div>
+
+
+
+
+</body>
+
+</html>
