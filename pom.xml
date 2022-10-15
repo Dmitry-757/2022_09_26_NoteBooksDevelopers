@@ -34,12 +34,18 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf -->
+<!--        <dependency>-->
+<!--&lt;!&ndash;            <version>3.0.15.RELEASE</version>&ndash;&gt;-->
+<!--            <groupId>org.thymeleaf</groupId>-->
+<!--            <artifactId>thymeleaf</artifactId>-->
+<!--            <version>3.1.0-SNAPSHOT</version>-->
+<!--            <scope>compile</scope>-->
+<!--        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf -->
         <dependency>
-<!--            <version>3.0.15.RELEASE</version>-->
             <groupId>org.thymeleaf</groupId>
             <artifactId>thymeleaf</artifactId>
-            <version>3.1.0-SNAPSHOT</version>
-            <scope>compile</scope>
+            <version>3.0.15.RELEASE</version>
         </dependency>
 
         <dependency>
