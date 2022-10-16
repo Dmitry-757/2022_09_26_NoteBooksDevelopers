@@ -157,6 +157,31 @@ public class PrepareDB {
                             ON DELETE CASCADE
                             ON UPDATE CASCADE);""";
 
+        String CREATE_TABLE_DetailedModels =
+                """
+                        CREATE TABLE `notebookdev_db`.`models_detailed_tbl` (
+                          `id` INT NOT NULL AUTO_INCREMENT,
+                          `modelsId` INT NOT NULL,
+                          `description` VARCHAR(500) NOT NULL,
+                          PRIMARY KEY (`id`),
+                          UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
+                        
+                        """;
+
+        String CREATE_TABLE_DetailedModelsPhoto = """
+                        CREATE TABLE `notebookdev_db`.`models_detailed_photo_tbl` (
+                          `id` INT NOT NULL AUTO_INCREMENT,
+                          `detailedModelId` INT NOT NULL,
+                          `photo` MEDIUMBLOB NULL,
+                          PRIMARY KEY (`id`),
+                          UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE,
+                          INDEX `detailedModelsKey_idx` (`detailedModelId` ASC) VISIBLE,
+                          CONSTRAINT `detailedModelsKey`
+                            FOREIGN KEY (`detailedModelId`)
+                            REFERENCES `notebookdev_db`.`models_detailed_tbl` (`id`)
+                            ON DELETE CASCADE
+                            ON UPDATE CASCADE);                
+                        """;
 
         try (Connection connection = DBConnection.getConnection();
              Statement statement = connection.createStatement()
@@ -169,6 +194,8 @@ public class PrepareDB {
             statement.addBatch(CREATE_TABLE_DetailedNews_tbl);
             statement.addBatch(CREATE_TABLE_DetailedNewsPhoto_tbl);
             statement.addBatch(CREATE_TABLE_Models_tbl);
+            statement.addBatch(CREATE_TABLE_DetailedModels);
+            statement.addBatch(CREATE_TABLE_DetailedModelsPhoto);
 
             statement.executeBatch();
 
@@ -195,7 +222,7 @@ public class PrepareDB {
             ps.setInt(3,10000);
             ps.setString(4,"Manufacturer of Dell noteBooks");
             ps.setString(5,"just logo");
-            fis = new FileInputStream("src/main/webapp/img/book_dell.jpg");
+            fis = new FileInputStream("src/main/webapp/img/developers/book_dell.jpg");
             ps.setBinaryStream(6, fis);
             ps.addBatch();
 
@@ -204,7 +231,7 @@ public class PrepareDB {
             ps.setInt(3,20000);
             ps.setString(4,"Manufacturer of HP noteBooks");
             ps.setString(5,"just logo");
-            fis = new FileInputStream("src/main/webapp/img/book_hp.jpg");
+            fis = new FileInputStream("src/main/webapp/img/developers/book_hp.jpg");
             ps.setBinaryStream(6, fis);
             ps.addBatch();
 
@@ -213,7 +240,7 @@ public class PrepareDB {
             ps.setInt(3,20000);
             ps.setString(4,"Manufacturer of Samsung noteBooks");
             ps.setString(5,"just logo");
-            fis = new FileInputStream("src/main/webapp/img/book_samsung.jpg");
+            fis = new FileInputStream("src/main/webapp/img/developers/book_samsung.jpg");
             ps.setBinaryStream(6, fis);
             ps.addBatch();
 
@@ -651,7 +678,154 @@ public class PrepareDB {
     }
 
 
+    public static void fillModelsDetailed_tbl(){
+        String fillStr1 =
+                "INSERT notebookdev_db.models_detailed_tbl(modelsId, description) \n" +
+                        "VALUES (?, ?)";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(fillStr1)
+        ) {
+            connection.setAutoCommit(false);
 
+            //dell
+            ps.setInt(1,1); //modelId
+            ps.setString(2, "dell Full HD (1920x1080), IPS, Intel Core i3-1115G4, ядра: 2 х 3 ГГц, " +
+                    "RAM 8 ГБ, SSD 256 ГБ, Intel UHD Graphics , Linux");
+            ps.addBatch();
+
+            ps.setInt(1,2); //modelId
+            ps.setString(2, "dell Full HD (1920x1080), WVA (TN+film), Intel Core i5-1035G1, " +
+                    "ядра: 4 х 1 ГГц, RAM 8 ГБ, SSD 256 ГБ, Intel UHD Graphics , Linux");
+            ps.addBatch();
+
+            //hp
+            ps.setInt(1,3); //modelId
+            ps.setString(2, "hp 15.6\" Ноутбук Haier U1520HD черный [Full HD (1920x1080), IPS, " +
+                    "Intel Celeron N4020, ядра: 2 х 1.1 ГГц, RAM 4 ГБ, HDD 1000 ГБ, eMMC 64 ГБ, Intel HD Graphics , без ОС]");
+            ps.addBatch();
+
+            ps.setInt(1,4); //modelId
+            ps.setString(2, "hp " +
+                    "Full HD (1920x1080), IPS, Intel Pentium Silver N6000, ядра: 4 х 1.1 ГГц, RAM 4 ГБ, " +
+                    "SSD 128 ГБ, Intel UHD Graphics , Windows 10 Home Single Language");
+            ps.addBatch();
+
+            //samsung
+            ps.setInt(1,4); //modelId
+            ps.setString(2, "samsung 15-дюймовый ноутбук Samsung 900X4C-A01 — ультратонкий, легкий, " +
+                    "изящный и элегантный мобильный компьютер. Его корпус выполнен из особого материала — дюралюминия, " +
+                    "который обеспечивает компактность и прочность устройства. " +
+                    "Samsung 900X4C создан на базе двухъядерного процессора Intel Core i5-3317U, оснащен 8 Гб оперативной " +
+                    "памяти и встроенной графической подсистемой Intel HD Graphics 4000");
+            ps.addBatch();
+
+            ps.setInt(1,5); //modelId
+            ps.setString(2, "samsung Ноутбук Samsung RF712 выполнен в стильном дизайне, " +
+                    "он позволяет наслаждаться всеми видами 3D-развлечений. " +
+                    "В модели установлен 17,3-дюймовый HD-дисплей с технологией «SuperBright Plus» и LED-подсветкой, " +
+                    "он на 100% ярче обычных 3D-экранов и отображает четкую, детализированную, насыщенную картинку с " +
+                    "натуральной цветопередачей при просмотре в 3D-очках.");
+            ps.addBatch();
+
+
+
+            int[] rows = ps.executeBatch();
+            System.out.println("to models_detailed_tbl where added " + (rows.length) +" record(s)");
+            connection.commit();
+
+        }
+        catch (SQLException  e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void fillDetailedModels_photo_tbl(){
+        String fillStr1 =
+                "INSERT notebookdev_db.models_detailed_photo_tbl(detailedModelId, photo) \n" +
+                        "VALUES (?, ?)";
+        try (Connection connection = DBConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(fillStr1)
+        ) {
+            connection.setAutoCommit(false);
+            FileInputStream fis;
+
+            //dell
+            //2 photo to first model
+            ps.setInt(1,1);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d1_1.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,1);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d1_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
+            //2 photo to second model
+            ps.setInt(1,2);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d2_1.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,2);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d2_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
+            //hp
+            //2 photo to third model
+            ps.setInt(1,3);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp1_1.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,3);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp1_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
+            //2 photo to fourth model
+            ps.setInt(1,4);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp2_1.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,4);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp2_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
+            //samsung
+            //2 photo to faith model
+            ps.setInt(1,5);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s1_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,5);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s1_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
+            //2 photo to sixth model
+            ps.setInt(1,6);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s2_1.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+            ps.setInt(1,6);
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s2_2.jpg");
+            ps.setBinaryStream(2, fis);
+            ps.addBatch();
+
+            int[] rows = ps.executeBatch();
+            System.out.println("to detailedModels_photo_tbl where added " + (rows.length) +" record(s)");
+            connection.commit();
+
+            fis.close();
+
+        }
+        catch (SQLException | FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
@@ -664,5 +838,7 @@ public class PrepareDB {
         fillDetailedNews_tbl();
         fillDetailedNews_photo_tbl();
         fillModels_tbl();
+        fillModelsDetailed_tbl();
+        fillDetailedModels_photo_tbl();
     }
 }

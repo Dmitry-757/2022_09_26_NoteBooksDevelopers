@@ -176,27 +176,6 @@ public class DAO {
 
 
 
-//    public static ResultSet getHistoryPhotosDevHistoryByDevId(long id) {
-//        ResultSet resultSet;
-//
-//        String sql_query = """
-//                select * from devhistory_photo_tbl as ph
-//                join devhistory_tbl as h on ph.devhistoryId=h.id
-//                where h.devId=
-//                """+id;
-//
-//        try (Connection connection = DBConnection.getConnection();
-//             Statement statement = connection.createStatement()
-//        ) {
-//            return statement.executeQuery(sql_query);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
-
-
     public static Map<Integer, String> getNews() {
         Map<Integer, String> newsMap = new HashMap<>();
         String sql_query = "select * from notebookdev_db.shortnews_tbl;";
@@ -241,6 +220,34 @@ public class DAO {
         String sql_query = "select * from notebookdev_db.detailednews_photo_tbl where detailedNewsId = "+id+";";
         return getPhotosById(sql_query);
     }
+
+
+    //ищем детализированные описания которые относятся к конкретной модели (where modelsId = id)
+    public static Map<Integer, String> getDetailedModelsByModelId(long id) {
+        Map<Integer, String> newsMap = new HashMap<>();
+        String sql_query = "select * from notebookdev_db.models_detailed_tbl where modelsId = "+id+";";
+        try (Connection connection = DBConnection.getConnection();
+             Statement statement = connection.createStatement()
+        ) {
+            ResultSet resultSet = statement.executeQuery(sql_query);
+            while (resultSet.next()) {
+                int recId = resultSet.getInt("id");
+                String description = resultSet.getString("description");
+                newsMap.put(recId, description);
+            }
+            return newsMap;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static List<byte[]> getDetailedModelsPhotosByDetailedModelsId(long id) {
+        String sql_query = "select * from notebookdev_db.models_detailed_photo_tbl where detailedModelId = "+id+";";
+        return getPhotosById(sql_query);
+    }
+
 
 
 }
