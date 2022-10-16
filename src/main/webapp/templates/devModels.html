@@ -36,7 +36,7 @@
 
 <div th:each="modelRec, iterStat : ${modelsMap}">
     <ul>
-        <li th:text="${modelRec.getValue()} ">some model record </li>
+        <li> <a th:text="${modelRec.getValue()}" th:href="${ctxPath}+'/DevModels/Desc?modelId='+${modelRec.getKey()}">some model record </a> </li>
 
         <div style="text-align: center">
             <img style="width: 50%" th:src="${ctxPath}+'/modelsPhoto?modelId='+${modelRec.getKey()}" src="../img/notebook.jpg" alt="laptop">

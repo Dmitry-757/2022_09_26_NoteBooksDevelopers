@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Новости</title>
+    <link rel="stylesheet" href="../css/commonInfo.css" th:href="@{/css/commonInfo.css}" />
+    <link rel="stylesheet" href="../css/buttons.css" th:href="@{/css/buttons.css}" />
+    <style>
+        /* form {
+            border: 1px solid #87CEEB;
+            margin: 10px;
+            padding: 10px;
+        } */
+    </style>
+</head>
+
+<body>
+<!--<h1 th:text="'Новости '+${dev.getName()}">Новости</h1>-->
+<h1>Новости</h1>
+<br>
+<a href="/" th:href="${ctxPath}+'/main'">Главная</a>
+<br>
+<br>
+<div class="button-back" role="button" onclick="history.back()" th:style="'background-image:url('+${ctxPath}+'/img/arrow-back-icon.jpg); background-repeat: no-repeat, repeat; background-size: cover;'">
+</div>
+<br>
+<hr>
+<br>
+
+<div th:each="detailedModelRec, iterStat : ${detailedModelMap}">
+    <ul>
+        <li th:text="${detailedModelRec.getValue()} ">some detailed model description record </li>
+
+        <div th:each="i: ${#numbers.sequence(1, photosNumber)}" style="text-align: center">
+            <br><br>
+            <a th:text="'image '+${i}+' for detailed description of model'+${detailedModelRec.getKey()} ">image for detailed description of model</a>
+            <br>
+            <img style="width: 30%" th:src="${ctxPath}+'/detailedModelDescImg?detailedModelId='+${detailedModelRec.getKey()}+'&photoId='+${i}" src="../img/notebook.jpg" alt="news">
+<!--            <hr>-->
+            <br>
+        </div>
+    </ul>
+
+<!--        <a th:href="${ctxPath}+'/news/detailedNews?newsId='+${newsRec.getKey()}" th:text="${newsRec.getValue()} ">some news record </a>-->
+
+<!--        <div style="text-align: center">-->
+<!--            <img style="width: 30%" th:src="${ctxPath}+'/DetailedNewsImg?newsId='+${newsRec.getKey()}" src="../img/notebook.jpg" alt="news">-->
+<!--        </div>-->
+        <br>
+        <hr>
+        <br>
+
+</div>
+
+
+
+
+</body>
+
+</html>

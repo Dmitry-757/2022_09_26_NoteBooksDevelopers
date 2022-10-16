@@ -711,7 +711,7 @@ public class PrepareDB {
             ps.addBatch();
 
             //samsung
-            ps.setInt(1,4); //modelId
+            ps.setInt(1,5); //modelId
             ps.setString(2, "samsung 15-дюймовый ноутбук Samsung 900X4C-A01 — ультратонкий, легкий, " +
                     "изящный и элегантный мобильный компьютер. Его корпус выполнен из особого материала — дюралюминия, " +
                     "который обеспечивает компактность и прочность устройства. " +
@@ -719,7 +719,7 @@ public class PrepareDB {
                     "памяти и встроенной графической подсистемой Intel HD Graphics 4000");
             ps.addBatch();
 
-            ps.setInt(1,5); //modelId
+            ps.setInt(1,6); //modelId
             ps.setString(2, "samsung Ноутбук Samsung RF712 выполнен в стильном дизайне, " +
                     "он позволяет наслаждаться всеми видами 3D-развлечений. " +
                     "В модели установлен 17,3-дюймовый HD-дисплей с технологией «SuperBright Plus» и LED-подсветкой, " +
@@ -795,7 +795,7 @@ public class PrepareDB {
             //samsung
             //2 photo to faith model
             ps.setInt(1,5);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s1_2.jpg");
+            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s1_1.jpg");
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,5);
