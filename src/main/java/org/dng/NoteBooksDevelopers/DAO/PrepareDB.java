@@ -1,5 +1,7 @@
 package org.dng.NoteBooksDevelopers.DAO;
 
+import jakarta.servlet.ServletContext;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -206,7 +208,7 @@ public class PrepareDB {
     }
 
 
-    public static void fillNotebookdev(){
+    public static void fillNotebookdev(ServletContext ctx){
         String fillStr1 =
                 "INSERT notebookdev_db.notebookdev_tbl(name, country, employeesNumber, shortInfo, logo, photo) \n" +
                         "VALUES (?, ?, ?, ?, ?, ?)";
@@ -222,7 +224,12 @@ public class PrepareDB {
             ps.setInt(3,10000);
             ps.setString(4,"Manufacturer of Dell noteBooks");
             ps.setString(5,"just logo");
-            fis = new FileInputStream("src/main/webapp/img/developers/book_dell.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/developers/book_dell.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/developers/book_dell.jpg"));
+            }
+
             ps.setBinaryStream(6, fis);
             ps.addBatch();
 
@@ -231,7 +238,12 @@ public class PrepareDB {
             ps.setInt(3,20000);
             ps.setString(4,"Manufacturer of HP noteBooks");
             ps.setString(5,"just logo");
-            fis = new FileInputStream("src/main/webapp/img/developers/book_hp.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/developers/book_hp.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/developers/book_hp.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/developers/book_hp.jpg"));
+            }
             ps.setBinaryStream(6, fis);
             ps.addBatch();
 
@@ -240,7 +252,12 @@ public class PrepareDB {
             ps.setInt(3,20000);
             ps.setString(4,"Manufacturer of Samsung noteBooks");
             ps.setString(5,"just logo");
-            fis = new FileInputStream("src/main/webapp/img/developers/book_samsung.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/developers/book_samsung.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/developers/book_samsung.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/developers/book_samsung.jpg"));
+            }
             ps.setBinaryStream(6, fis);
             ps.addBatch();
 
@@ -332,7 +349,7 @@ public class PrepareDB {
         }
     }
 
-    public static void fillDevHistoryPhoto_tbl(){
+    public static void fillDevHistoryPhoto_tbl(ServletContext ctx){
         String fillStr1 =
                 "INSERT notebookdev_db.devhistory_photo_tbl(devhistoryId, photo) \n" +
                         "VALUES (?, ?)";
@@ -344,49 +361,96 @@ public class PrepareDB {
 
             //dell
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_1_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_1_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_1_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/historyPhoto/dell_1_1.jpg"));
+            }
+
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_1_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_1_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_1_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/historyPhoto/dell_1_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/historyPhoto/dell_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,4);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_3.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_3.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/historyPhoto/dell_3.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/historyPhoto/dell_3.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             //hp
             ps.setInt(1,5);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/hp_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/historyPhoto/hp_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/historyPhoto/hp_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/historyPhoto/hp_1.jpg"));
+            }
+
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,6);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/hp_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/historyPhoto/hp_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/historyPhoto/hp_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/historyPhoto/hp_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             //samsung
             ps.setInt(1,7);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/historyPhoto/samsung_1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,8);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/historyPhoto/samsung_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,9);
-            fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_3.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_3.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/historyPhoto/samsung_3.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/historyPhoto/samsung_3.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
@@ -411,7 +475,7 @@ public class PrepareDB {
 
 
 
-    public static void fillNews_tbl(){
+    public static void fillNews_tbl(ServletContext ctx){
 
         String fillStr1 =
                 "INSERT notebookdev_db.shortnews_tbl(shortNews, photo) \n" +
@@ -424,22 +488,42 @@ public class PrepareDB {
             FileInputStream fis;
 
             ps.setString(1, "новость 1");
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/n1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/n1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setString(1, "новость 2");
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/n2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/n2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setString(1, "новость 3");
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n3.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n3.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/n3.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/n3.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setString(1, "новость 4");
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n4.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/n4.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/n4.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/n4.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
@@ -533,7 +617,7 @@ public class PrepareDB {
         }
     }
 
-    public static void fillDetailedNews_photo_tbl(){
+    public static void fillDetailedNews_photo_tbl(ServletContext ctx){
         String fillStr1 =
                 "INSERT notebookdev_db.detailednews_photo_tbl(detailedNewsId, photo) \n" +
                         "VALUES (?, ?)";
@@ -544,42 +628,87 @@ public class PrepareDB {
             FileInputStream fis;
 
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n1_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n1_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n1_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/detailedNewsPhoto/n1_1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n1_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n1_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n1_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/detailedNewsPhoto/n1_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n2_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n2_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n2_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/detailedNewsPhoto/n2_1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n2_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n2_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n2_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/detailedNewsPhoto/n2_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/detailedNewsPhoto/n3_1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/detailedNewsPhoto/n3_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_3.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_3.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n3_3.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/detailedNewsPhoto/n3_3.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             ps.setInt(1,4);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n4_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n4_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n4_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/detailedNewsPhoto/n4_1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,4);
-            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n4_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n4_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/newsPhoto/detailedNewsPhoto/n4_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/newsPhoto/detailedNewsPhoto/n4_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
@@ -599,7 +728,7 @@ public class PrepareDB {
     }
 
 
-    public static void fillModels_tbl(){
+    public static void fillModels_tbl(ServletContext ctx){
         String fillStr1 =
                 "INSERT notebookdev_db.models_tbl(devId, modelName, photo) \n" +
                         "VALUES (?, ?, ?)";
@@ -613,14 +742,24 @@ public class PrepareDB {
             ps.setInt(1,1); //devId
             ps.setString(2, "dell Full HD (1920x1080), IPS, Intel Core i3-1115G4, ядра: 2 х 3 ГГц, " +
                     "RAM 8 ГБ, SSD 256 ГБ, Intel UHD Graphics , Linux");
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/dell_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/dell_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/dell_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/dell_1.jpg"));
+            }
             ps.setBinaryStream(3, fis);
             ps.addBatch();
 
             ps.setInt(1,1); //devId
             ps.setString(2, "dell Full HD (1920x1080), WVA (TN+film), Intel Core i5-1035G1, " +
                     "ядра: 4 х 1 ГГц, RAM 8 ГБ, SSD 256 ГБ, Intel UHD Graphics , Linux");
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/dell_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/dell_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/dell_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/dell_2.jpg"));
+            }
             ps.setBinaryStream(3, fis);
             ps.addBatch();
 
@@ -628,7 +767,12 @@ public class PrepareDB {
             ps.setInt(1,2); //devId
             ps.setString(2, "hp 15.6\" Ноутбук Haier U1520HD черный [Full HD (1920x1080), IPS, " +
                     "Intel Celeron N4020, ядра: 2 х 1.1 ГГц, RAM 4 ГБ, HDD 1000 ГБ, eMMC 64 ГБ, Intel HD Graphics , без ОС]");
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/hp_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/hp_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/hp_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/hp_1.jpg"));
+            }
             ps.setBinaryStream(3, fis);
             ps.addBatch();
 
@@ -636,7 +780,12 @@ public class PrepareDB {
             ps.setString(2, "hp " +
                     "Full HD (1920x1080), IPS, Intel Pentium Silver N6000, ядра: 4 х 1.1 ГГц, RAM 4 ГБ, " +
                     "SSD 128 ГБ, Intel UHD Graphics , Windows 10 Home Single Language");
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/hp_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/hp_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/hp_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/hp_2.jpg"));
+            }
             ps.setBinaryStream(3, fis);
             ps.addBatch();
 
@@ -647,7 +796,12 @@ public class PrepareDB {
                     "который обеспечивает компактность и прочность устройства. " +
                     "Samsung 900X4C создан на базе двухъядерного процессора Intel Core i5-3317U, оснащен 8 Гб оперативной " +
                     "памяти и встроенной графической подсистемой Intel HD Graphics 4000");
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/samsung_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/samsung_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/samsung_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/samsung_1.jpg"));
+            }
             ps.setBinaryStream(3, fis);
             ps.addBatch();
 
@@ -657,7 +811,12 @@ public class PrepareDB {
                     "В модели установлен 17,3-дюймовый HD-дисплей с технологией «SuperBright Plus» и LED-подсветкой, " +
                     "он на 100% ярче обычных 3D-экранов и отображает четкую, детализированную, насыщенную картинку с " +
                     "натуральной цветопередачей при просмотре в 3D-очках.");
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/samsung_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/samsung_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/samsung_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/samsung_2.jpg"));
+            }
             ps.setBinaryStream(3, fis);
             ps.addBatch();
 
@@ -740,7 +899,7 @@ public class PrepareDB {
     }
 
 
-    public static void fillDetailedModels_photo_tbl(){
+    public static void fillDetailedModels_photo_tbl(ServletContext ctx){
         String fillStr1 =
                 "INSERT notebookdev_db.models_detailed_photo_tbl(detailedModelId, photo) \n" +
                         "VALUES (?, ?)";
@@ -753,63 +912,124 @@ public class PrepareDB {
             //dell
             //2 photo to first model
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d1_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d1_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d1_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/d1_1.jpg"));
+            }
+
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,1);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d1_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d1_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d1_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/d1_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             //2 photo to second model
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d2_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d2_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d2_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/d2_1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,2);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d2_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d2_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/d2_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/d2_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             //hp
             //2 photo to third model
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp1_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp1_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp1_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/hp1_1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,3);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp1_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp1_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp1_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/hp1_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             //2 photo to fourth model
             ps.setInt(1,4);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp2_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp2_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp2_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/hp2_1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,4);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp2_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp2_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/hp2_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/hp2_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             //samsung
             //2 photo to faith model
             ps.setInt(1,5);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s1_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s1_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s1_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/s1_1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,5);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s1_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s1_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s1_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/s1_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
             //2 photo to sixth model
             ps.setInt(1,6);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s2_1.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s2_1.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s2_1.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/s2_1.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
             ps.setInt(1,6);
-            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s2_2.jpg");
+//            fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s2_2.jpg");
+            if (ctx == null) {
+                fis = new FileInputStream("src/main/webapp/img/modelsPhoto/detailedModelsPhoto/s2_2.jpg");
+            }else {
+                fis = new FileInputStream(ctx.getRealPath("/img/modelsPhoto/detailedModelsPhoto/s2_2.jpg"));
+            }
             ps.setBinaryStream(2, fis);
             ps.addBatch();
 
@@ -829,16 +1049,16 @@ public class PrepareDB {
 
 
 
-    public static void fillTables(){
-        fillNotebookdev();
+    public static void fillTables(ServletContext ctx){
+        fillNotebookdev(ctx);
         fillDevHistory_tbl();
-        fillDevHistoryPhoto_tbl();
-        fillNews_tbl();
+        fillDevHistoryPhoto_tbl(ctx);
+        fillNews_tbl(ctx);
         //fillNewsPhoto_tbl();
         fillDetailedNews_tbl();
-        fillDetailedNews_photo_tbl();
-        fillModels_tbl();
+        fillDetailedNews_photo_tbl(ctx);
+        fillModels_tbl(ctx);
         fillModelsDetailed_tbl();
-        fillDetailedModels_photo_tbl();
+        fillDetailedModels_photo_tbl(ctx);
     }
 }
