@@ -9,9 +9,12 @@ import java.sql.SQLException;
 
 public class mySQLConnection {
     private static String username = "root";
-    private static String password = "dingo1975";
-    private static String URL = "jdbc:mysql://localhost:3306";
-//    private static String URL = "jdbc:mysql://localhost:3306/notebookdev_db";
+    private static String password = "mypassword";
+
+
+//    private static String URL = "jdbc:mysql://localhost:3306";
+    private static String URL = "jdbc:mysql://sql-db";
+
     public static Connection connectionExp;
 
 
@@ -47,7 +50,7 @@ public class mySQLConnection {
     public static Connection getConnection(){
         //if connection is closed - lets open it again
         try {
-            if (connectionExp.isClosed() ) {
+            if (connectionExp.isClosed()||connectionExp==null) {
                 connectionExp = DriverManager.getConnection(URL, username, password);
             }
         } catch (SQLException e) {
